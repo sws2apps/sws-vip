@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "sws-vip",
+    "production": "sws-vip"
+  },
+  "targets": {}
+}
