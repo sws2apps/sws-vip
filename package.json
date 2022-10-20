@@ -25,7 +25,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.10",
     "@sws2apps/react-sw-helper": "^1.9.0",
-    "i18next": "^21.10.0",
+    "i18next": "^22.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.18.6",
