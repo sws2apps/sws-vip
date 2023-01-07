@@ -1,14 +1,14 @@
-# SWS VIP
+# Congregation Program for Everyone (CPE)
 
-SWS VIP is a web application that will allow you to handle different tasks for appointed brothers in Jehovah’s Witnesses congregation.
+- This module of the CPE program will allow you to handle various tasks for baptized and appointed brothers.
 
-## Who should use MSC?
+## Who should use this module?
 
-SWS VIP is designed for use by appointed brothers having at least one responsability in the congregations.
+This module is designed for use by baptized and appointed brothers.
 
-## What are the device requirements to open SWS VIP?
+## What are the device requirements to open CPE?
 
-SWS VIP is a web application, and it is also PWA capable. All devices that have up to date browser, depending on which platform it is running can use this web application.
+CPE is a web application, and it is also PWA capable. All devices that have up to date browser, depending on which platform it is running can use this web application.
 
 ## May I contribute?
 

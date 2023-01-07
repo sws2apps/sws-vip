@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "sws-vip",
-    "production": "sws-vip"
+    "production": "lmm-oa-sws",
+    "default": "lmm-oa-sws"
   },
   "targets": {}
 }
