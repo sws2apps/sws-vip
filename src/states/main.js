@@ -46,11 +46,6 @@ export const uidUserState = atom({
   default: '',
 });
 
-export const isCongConnectedState = atom({
-  key: 'isCongConnected',
-  default: false,
-});
-
 export const userPasswordState = atom({
   key: 'userPassowrd',
   default: '',
@@ -62,18 +57,18 @@ export const monthNamesState = selector({
     const appLang = get(appLangState);
 
     let months = [];
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.january']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.february']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.march']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.april']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.may']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.june']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.july']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.august']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.september']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.october']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.november']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['global.december']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['january']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['february']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['march']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['april']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['may']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['june']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['july']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['august']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['september']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['october']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['november']);
+    months.push(getI18n().getDataByLanguage(appLang).translation['december']);
 
     return months;
   },
@@ -314,11 +309,6 @@ export const userIDState = atom({
 export const isReEnrollMFAState = atom({
   key: 'isReEnrollMFA',
   default: false,
-});
-
-export const userLocalUidState = atom({
-  key: 'userLocalUid',
-  default: '',
 });
 
 export const isMyAssignmentOpenState = atom({

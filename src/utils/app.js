@@ -29,7 +29,7 @@ export const loadApp = async () => {
     class_count,
     meeting_day,
     meeting_time,
-    pocket_local_id,
+    local_id,
     pocket_members,
     source_lang,
   } = await dbGetAppSettings();
@@ -42,7 +42,7 @@ export const loadApp = async () => {
   await promiseSetRecoil(meetingTimeState, meeting_time || new Date(Date.now()));
   await promiseSetRecoil(appLangState, app_lang || 'e');
   await promiseSetRecoil(sourceLangState, source_lang || 'e');
-  await promiseSetRecoil(pocketLocalIDState, pocket_local_id || '');
+  await promiseSetRecoil(pocketLocalIDState, local_id || '');
   await promiseSetRecoil(pocketMembersState, pocket_members || []);
 
   I18n.changeLanguage(app_lang);

@@ -14,6 +14,8 @@ import NavBar from './NavBar';
 import { fetchNotifications } from '../utils/app';
 import { AppUpdater } from '../features/updater';
 import { UserSignOut } from '../features/userSignOut';
+import { MyAssignments } from '../features/myAssignments';
+import { ScheduleAutoRefresh } from '../features/schedules';
 
 const WaitingPage = () => {
   return (
@@ -67,7 +69,7 @@ const Layout = ({ updatePwa }) => {
 
       <Box sx={{ padding: '10px' }}>
         <UserAutoLogin />
-
+        <ScheduleAutoRefresh />
         {isOpenAbout && <About />}
         {isOpenWhatsNew && <WhatsNew />}
         {isAppClosing && <UserSignOut />}
@@ -75,6 +77,7 @@ const Layout = ({ updatePwa }) => {
         {isAppLoad && <Startup />}
         {!isAppLoad && (
           <Suspense fallback={<WaitingPage />}>
+            <MyAssignments />
             <Outlet />
           </Suspense>
         )}

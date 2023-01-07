@@ -13,7 +13,7 @@ const ErrorBoundary = () => {
         <Typography>Ooops, an error occured in CPE:</Typography>
       </Box>
       <Box>
-        <Typography>{error.data}</Typography>
+        <Typography>{error.data || error.message}</Typography>
       </Box>
     </Box>
   );

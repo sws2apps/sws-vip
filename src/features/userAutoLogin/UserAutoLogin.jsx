@@ -72,7 +72,7 @@ const UserAutoLogin = () => {
               cong_name,
               cong_number,
               isLoggedOut: false,
-              pocket_local_id,
+              local_id: pocket_local_id.person_uid,
               pocket_members,
             };
 
@@ -82,7 +82,7 @@ const UserAutoLogin = () => {
             setUserID(id);
             setCongName(cong_name);
             setCongNumber(cong_number);
-            setPocketLocalID(pocket_local_id);
+            setPocketLocalID(pocket_local_id.person_uid);
             setPocketMembers(pocket_members);
             setCongAccountConnected(true);
 
