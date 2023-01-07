@@ -86,7 +86,11 @@ const App = ({ updatePwa }) => {
   }, [setVisitorID, isOnline]);
 
   useEffect(() => {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    if (
+      !process.env.NODE_ENV ||
+      process.env.NODE_ENV === 'development' ||
+      window.location.host.indexOf('localhost') !== -1
+    ) {
       if (import.meta.env.VITE_API_REMOTE_URL) {
         setApiHost(import.meta.env.VITE_API_REMOTE_URL);
       } else {

@@ -131,5 +131,13 @@
   "september": "September",
   "october": "October",
   "november": "November",
-  "december": "December"
+  "december": "December",
+  "newVersion": "A new version of CPE is available",
+  "updateApp": "Update",
+  "cacheCompleted": "CPE can be used offline now",
+  "whatsNew": "What’s new",
+  "shortDateFormat": "mm/dd/yyyy",
+  "shortDatePickerFormat": "MM/dd/yyyy",
+  "waitSignOut": "Please wait! Don’t close your browser ...",
+  "signInNoInternet": "Sign in to your account"
 }

@@ -121,7 +121,7 @@ const UserSignOut = () => {
         aria-labelledby="alert-dialog-close-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-close-title">{t('global.waitSignOut')}</DialogTitle>
+        <DialogTitle id="alert-dialog-close-title">{t('waitSignOut')}</DialogTitle>
         <DialogContent>
           <CircularProgress
             color="secondary"

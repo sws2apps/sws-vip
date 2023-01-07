@@ -116,7 +116,7 @@ const SignIn = () => {
             setStartupProgress(0);
           }, [2000]);
         } else {
-          setAppMessage(t('login.incorrectInfo'));
+          setAppMessage(t('incorrectInfo'));
           setAppSeverity('warning');
           setIsProcessing(false);
           setAppSnackOpen(true);
@@ -130,7 +130,7 @@ const SignIn = () => {
         }
       }
     } catch (err) {
-      setAppMessage(t('login.incorrectInfo'));
+      setAppMessage(t('incorrectInfo'));
       setAppSeverity('warning');
       setIsProcessing(false);
       setAppSnackOpen(true);
@@ -239,7 +239,7 @@ const SignIn = () => {
       </Typography>
 
       <Typography sx={{ marginBottom: '20px' }}>
-        {isInternetNeeded ? t('signInWithInternet') : t('login.signInNoInternet')}
+        {isInternetNeeded ? t('signInWithInternet') : t('signInNoInternet')}
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '500px' }}>

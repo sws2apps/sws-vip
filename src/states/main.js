@@ -78,7 +78,7 @@ export const shortDateFormatState = selector({
   key: 'shortDateFormat',
   get: ({ get }) => {
     const appLang = get(appLangState);
-    const format = getI18n().getDataByLanguage(appLang).translation['global.shortDateFormat'];
+    const format = getI18n().getDataByLanguage(appLang).translation['shortDateFormat'];
     return format;
   },
 });
@@ -87,7 +87,7 @@ export const shortDatePickerFormatState = selector({
   key: 'shortDatePickerFormat',
   get: ({ get }) => {
     const appLang = get(appLangState);
-    const format = getI18n().getDataByLanguage(appLang).translation['global.shortDatePickerFormat'];
+    const format = getI18n().getDataByLanguage(appLang).translation['shortDatePickerFormat'];
     return format;
   },
 });
