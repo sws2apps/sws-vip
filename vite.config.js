@@ -1,18 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import eslint from 'vite-plugin-eslint'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import eslint from 'vite-plugin-eslint';
+import { loadVersion } from '@sws2apps/vite-plugin-package-version';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  define: {
-		APP_VERSION: JSON.stringify(process.env.npm_package_version),
-	},
-  plugins: [react(), eslint()],
+  plugins: [react(), eslint(), loadVersion()],
   server: {
-    port: 4000,
+    port: 4040,
     host: true,
-	},
-	preview: {
-    port: 4000,
-	},
-})
+  },
+  preview: {
+    port: 4040,
+  },
+  build: {
+    chunkSizeWarningLimit: 2000,
+  },
+});
