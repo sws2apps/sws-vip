@@ -8,7 +8,13 @@ import About from '../features/about';
 import RootModal from './RootModal';
 import UserAutoLogin from '../features/userAutoLogin';
 import { WhatsNew } from '../features/whatsNew';
-import { isAboutOpenState, isAppClosingState, isAppLoadState, isWhatsNewOpenState } from '../states/main';
+import {
+  isAboutOpenState,
+  isAppClosingState,
+  isAppLoadState,
+  isOnlineState,
+  isWhatsNewOpenState,
+} from '../states/main';
 import Startup from '../features/startup';
 import NavBar from './NavBar';
 import { fetchNotifications } from '../utils/app';
@@ -44,6 +50,7 @@ const Layout = ({ updatePwa }) => {
   const isOpenAbout = useRecoilValue(isAboutOpenState);
   const isOpenWhatsNew = useRecoilValue(isWhatsNewOpenState);
   const isAppClosing = useRecoilValue(isAppClosingState);
+  const isOnline = useRecoilValue(isOnlineState);
 
   const checkPwaUpdate = () => {
     if ('serviceWorker' in navigator) {
@@ -55,12 +62,14 @@ const Layout = ({ updatePwa }) => {
   };
 
   useEffect(() => {
-    fetchNotifications();
+    if (isOnline) {
+      fetchNotifications();
+    }
 
     if (import.meta.env.PROD) {
       checkPwaUpdate();
     }
-  }, [location]);
+  }, [isOnline, location]);
 
   return (
     <RootModal>
