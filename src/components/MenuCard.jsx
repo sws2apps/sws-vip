@@ -45,10 +45,10 @@ const MenuCard = ({ menu }) => {
             }}
           >
             <List>
-              {links.map((link, index) => (
-                <Box key={`menu-child-${index}`}>
+              {links.map((link) => (
+                <Box key={`menu-child-${link.title}`}>
                   {link.visible && (
-                    <ListItem disablePadding disabled={link.disabled}>
+                    <ListItem disablePadding>
                       <ListItemButton onClick={() => handleAction(link)}>
                         <ListItemIcon>{link.icon}</ListItemIcon>
                         <ListItemText primary={link.title} />

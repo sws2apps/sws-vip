@@ -14,17 +14,11 @@ export const dbSaveNotifications = async (data) => {
 
   await appDb.notifications.clear();
 
-  for (let i = 0; i < data.length; i++) {
-    const announcement = data[i];
-
+  for await (const announcement of data) {
     let obj = {};
     const notification = notifications.find((item) => item.notification_id === announcement.id);
 
-    if (notification) {
-      obj.isRead = notification.isRead;
-    } else {
-      obj.isRead = false;
-    }
+    obj.isRead = notification ? notification.isRead : false;
     obj.notification_id = announcement.id;
     obj.content = {};
     langList.forEach((lang) => {
