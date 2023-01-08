@@ -7,6 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
 import NoMeetingRoomIcon from '@mui/icons-material/NoMeetingRoom';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -83,7 +84,7 @@ const WeeklyAssignments = () => {
   const [cbsReader, setCbsReader] = useState('');
   const [closingPrayer, setClosingPrayer] = useState('');
   const [weekType, setWeekType] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentWeek, setCurrentWeek] = useState('');
   const [fCurrentWeek, setFCurrentWeek] = useState('');
   const [previousWeek, setPreviousWeek] = useState('');
@@ -220,23 +221,25 @@ const WeeklyAssignments = () => {
   }, [shortDateFormat, sourceLang, currentWeek, schedules, t]);
 
   useEffect(() => {
-    let isExist = false;
+    if (schedules.length > 0) {
+      let isExist = false;
 
-    const today = new Date();
-    const day = today.getDay();
-    const diff = today.getDate() - day + (day === 0 ? -6 : 1);
-    let monDay = new Date(today.setDate(diff));
+      const today = new Date();
+      const day = today.getDay();
+      const diff = today.getDate() - day + (day === 0 ? -6 : 1);
+      let monDay = new Date(today.setDate(diff));
 
-    do {
-      const fDate = format(monDay, 'MM/dd/yyyy');
-      const schedule = schedules.find((data) => data.weekOf === fDate);
-      if (schedule) {
-        setCurrentWeek(fDate);
-        isExist = true;
-      }
+      do {
+        const fDate = format(monDay, 'MM/dd/yyyy');
+        const schedule = schedules.find((data) => data.weekOf === fDate);
+        if (schedule) {
+          setCurrentWeek(fDate);
+          isExist = true;
+        }
 
-      monDay.setDate(monDay.getDate() + 7);
-    } while (isExist === false);
+        monDay.setDate(monDay.getDate() + 7);
+      } while (isExist === false);
+    }
   }, [schedules]);
 
   return (
@@ -249,156 +252,178 @@ const WeeklyAssignments = () => {
         },
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton onClick={handlePreviousWeek} disabled={disablePrevious}>
-          <SkipPreviousIcon sx={{ fontSize: '40px' }} />
-        </IconButton>
-        <IconButton onClick={handleActiveWeek}>
-          <HomeIcon sx={{ fontSize: '40px' }} />
-        </IconButton>
-        <IconButton onClick={handleNextWeek} disabled={disableNext}>
-          <SkipNextIcon sx={{ fontSize: '40px' }} />
-        </IconButton>
-      </Box>
-
-      <Typography variant="h6" align="center" sx={{ lineHeight: 1.3, marginBottom: '20px' }}>
-        {t('currentSchedule', { currentWeek: fCurrentWeek })}
-      </Typography>
-
-      {isLoading && (
-        <CircularProgress
-          color="secondary"
-          size={80}
-          disableShrink={true}
+      {schedules.length === 0 && (
+        <Container
           sx={{
             display: 'flex',
-            margin: '20vh auto',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '60vh',
           }}
-        />
+        >
+          <InfoIcon color="primary" sx={{ fontSize: '80px' }} />
+          <Typography variant="body1" align="center">
+            {t('noSchedules')}
+          </Typography>
+        </Container>
       )}
-      {!isLoading && (
+      {schedules.length > 0 && (
         <>
-          {noMeeting && (
-            <Container
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <IconButton onClick={handlePreviousWeek} disabled={disablePrevious}>
+              <SkipPreviousIcon sx={{ fontSize: '40px' }} />
+            </IconButton>
+            <IconButton onClick={handleActiveWeek}>
+              <HomeIcon sx={{ fontSize: '40px' }} />
+            </IconButton>
+            <IconButton onClick={handleNextWeek} disabled={disableNext}>
+              <SkipNextIcon sx={{ fontSize: '40px' }} />
+            </IconButton>
+          </Box>
+
+          <Typography variant="h6" align="center" sx={{ lineHeight: 1.3, marginBottom: '20px' }}>
+            {t('currentSchedule', { currentWeek: fCurrentWeek })}
+          </Typography>
+
+          {isLoading && (
+            <CircularProgress
+              color="secondary"
+              size={80}
+              disableShrink={true}
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '60vh',
+                margin: '20vh auto',
               }}
-            >
-              <NoMeetingRoomIcon color="error" sx={{ fontSize: '150px' }} />
-              <Typography variant="body1" align="center">
-                {t('noMeeting')}
-              </Typography>
-            </Container>
+            />
           )}
-          {!noMeeting && (
-            <Box sx={{ width: '100%' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <Box>
-                    <AssignmentTypeContainer type={t('chairmanMidweekMeeting')} />
-                    <PersonFieldContainer person={chairmanA} />
-                  </Box>
-                  {classCount === 2 && weekType === 1 && (
-                    <Box>
-                      <AssignmentTypeContainer type={t('auxClassCounselor')} />
-                      <PersonFieldContainer person={chairmanB} />
+          {!isLoading && (
+            <>
+              {noMeeting && (
+                <Container
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '60vh',
+                  }}
+                >
+                  <NoMeetingRoomIcon color="error" sx={{ fontSize: '150px' }} />
+                  <Typography variant="body1" align="center">
+                    {t('noMeeting')}
+                  </Typography>
+                </Container>
+              )}
+              {!noMeeting && (
+                <Box sx={{ width: '100%' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                      <Box>
+                        <AssignmentTypeContainer type={t('chairmanMidweekMeeting')} />
+                        <PersonFieldContainer person={chairmanA} />
+                      </Box>
+                      {classCount === 2 && weekType === 1 && (
+                        <Box>
+                          <AssignmentTypeContainer type={t('auxClassCounselor')} />
+                          <PersonFieldContainer person={chairmanB} />
+                        </Box>
+                      )}
                     </Box>
+                    <Box>
+                      <AssignmentTypeContainer type={t('prayerMidweekMeeting')} />
+                      <PersonFieldContainer person={openingPrayer} />
+                    </Box>
+                  </Box>
+                  <MeetingPartHeader className="tgwPart" text={t('treasuresPart')} />
+                  <ScheduleRowContainer source={tgwTalkSrc} personA={tgwTalk} />
+                  <ScheduleRowContainer source={t('tgwGems')} personA={tgwGems} />
+                  <ScheduleRowContainer
+                    class_count={classCount}
+                    source={t('bibleReadingText')}
+                    sourceAlt={bibleReadingSrc}
+                    personA={stuBReadA}
+                    personB={stuBReadB}
+                  />
+                  <MeetingPartHeader className="ayfPart" text={t('applyFieldMinistryPart')} />
+                  <ScheduleRowAYFContainer
+                    class_count={classCount}
+                    source={`${ass1TypeName} (${ass1Time} min.)`}
+                    sourceAlt={ass1Src}
+                    personA={stu1A}
+                    personB={stu1B}
+                    assistantA={ass1A}
+                    assistantB={ass1B}
+                    assType={ass1Type}
+                  />
+                  {!isNaN(ass2Type) && ass2Type !== '' && (
+                    <ScheduleRowAYFContainer
+                      class_count={classCount}
+                      source={`${ass2TypeName} (${ass2Time} min.)`}
+                      sourceAlt={ass2Src}
+                      personA={stu2A}
+                      personB={stu2B}
+                      assistantA={ass2A}
+                      assistantB={ass2B}
+                      assType={ass2Type}
+                    />
                   )}
+                  {!isNaN(ass3Type) && ass3Type !== '' && (
+                    <ScheduleRowAYFContainer
+                      class_count={classCount}
+                      source={`${ass3TypeName} (${ass3Time} min.)`}
+                      sourceAlt={ass3Src}
+                      personA={stu3A}
+                      personB={stu3B}
+                      assistantA={ass3A}
+                      assistantB={ass3B}
+                      assType={ass3Type}
+                    />
+                  )}
+                  {!isNaN(ass4Type) && ass4Type !== '' && (
+                    <ScheduleRowAYFContainer
+                      class_count={classCount}
+                      source={`${ass4TypeName} (${ass4Time} min.)`}
+                      sourceAlt={ass4Src}
+                      personA={stu4A}
+                      personB={stu4B}
+                      assistantA={ass4A}
+                      assistantB={ass4B}
+                      assType={ass4Type}
+                    />
+                  )}
+                  <MeetingPartHeader className="lcPart" text={t('livingPart')} />
+                  <ScheduleRowContainer source={`(${lcPart1Time} min.) ${lcPart1Src}`} personA={lcPart1} />
+                  {lcPart2Time !== '' && lcPart2Time !== undefined && (
+                    <ScheduleRowContainer source={`(${lcPart2Time} min.) ${lcPart2Src}`} personA={lcPart2} />
+                  )}
+                  {weekType === 1 && (
+                    <ScheduleRowContainer
+                      class_count={classCount}
+                      source={t('cbs')}
+                      sourceAlt={cbsSrc}
+                      personA={cbsConductor}
+                      personB={cbsReader}
+                      cbs
+                    />
+                  )}
+                  <Box
+                    sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' }, marginTop: '20px' }}
+                  >
+                    <Box>
+                      <AssignmentTypeContainer type={t('prayerMidweekMeeting')} />
+                      <PersonFieldContainer person={closingPrayer} />
+                    </Box>
+                  </Box>
                 </Box>
-                <Box>
-                  <AssignmentTypeContainer type={t('prayerMidweekMeeting')} />
-                  <PersonFieldContainer person={openingPrayer} />
-                </Box>
-              </Box>
-              <MeetingPartHeader className="tgwPart" text={t('treasuresPart')} />
-              <ScheduleRowContainer source={tgwTalkSrc} personA={tgwTalk} />
-              <ScheduleRowContainer source={t('tgwGems')} personA={tgwGems} />
-              <ScheduleRowContainer
-                class_count={classCount}
-                source={t('bibleReadingText')}
-                sourceAlt={bibleReadingSrc}
-                personA={stuBReadA}
-                personB={stuBReadB}
-              />
-              <MeetingPartHeader className="ayfPart" text={t('applyFieldMinistryPart')} />
-              <ScheduleRowAYFContainer
-                class_count={classCount}
-                source={`${ass1TypeName} (${ass1Time} min.)`}
-                sourceAlt={ass1Src}
-                personA={stu1A}
-                personB={stu1B}
-                assistantA={ass1A}
-                assistantB={ass1B}
-                assType={ass1Type}
-              />
-              {!isNaN(ass2Type) && ass2Type !== '' && (
-                <ScheduleRowAYFContainer
-                  class_count={classCount}
-                  source={`${ass2TypeName} (${ass2Time} min.)`}
-                  sourceAlt={ass2Src}
-                  personA={stu2A}
-                  personB={stu2B}
-                  assistantA={ass2A}
-                  assistantB={ass2B}
-                  assType={ass2Type}
-                />
               )}
-              {!isNaN(ass3Type) && ass3Type !== '' && (
-                <ScheduleRowAYFContainer
-                  class_count={classCount}
-                  source={`${ass3TypeName} (${ass3Time} min.)`}
-                  sourceAlt={ass3Src}
-                  personA={stu3A}
-                  personB={stu3B}
-                  assistantA={ass3A}
-                  assistantB={ass3B}
-                  assType={ass3Type}
-                />
-              )}
-              {!isNaN(ass4Type) && ass4Type !== '' && (
-                <ScheduleRowAYFContainer
-                  class_count={classCount}
-                  source={`${ass4TypeName} (${ass4Time} min.)`}
-                  sourceAlt={ass4Src}
-                  personA={stu4A}
-                  personB={stu4B}
-                  assistantA={ass4A}
-                  assistantB={ass4B}
-                  assType={ass4Type}
-                />
-              )}
-              <MeetingPartHeader className="lcPart" text={t('livingPart')} />
-              <ScheduleRowContainer source={`(${lcPart1Time} min.) ${lcPart1Src}`} personA={lcPart1} />
-              {lcPart2Time !== '' && lcPart2Time !== undefined && (
-                <ScheduleRowContainer source={`(${lcPart2Time} min.) ${lcPart2Src}`} personA={lcPart2} />
-              )}
-              {weekType === 1 && (
-                <ScheduleRowContainer
-                  class_count={classCount}
-                  source={t('cbs')}
-                  sourceAlt={cbsSrc}
-                  personA={cbsConductor}
-                  personB={cbsReader}
-                  cbs
-                />
-              )}
-              <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' }, marginTop: '20px' }}>
-                <Box>
-                  <AssignmentTypeContainer type={t('prayerMidweekMeeting')} />
-                  <PersonFieldContainer person={closingPrayer} />
-                </Box>
-              </Box>
-            </Box>
+            </>
           )}
         </>
       )}

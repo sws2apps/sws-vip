@@ -142,5 +142,6 @@
   "bibleReading": "Bible Reading",
   "presentedBy": "Delivered by: ",
   "student": "Student",
-  "assistant": "Assistant"
+  "assistant": "Assistant",
+  "noSchedules": "No meeting schedule was published so far. Try again later"
 }
