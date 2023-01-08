@@ -1,6 +1,7 @@
 import { getI18n } from 'react-i18next';
 import { atom, selector } from 'recoil';
 import { dbGetAppSettings } from '../indexedDb/dbAppSettings';
+import { getAssignmentName } from '../utils/app';
 import { monthNamesState } from './main';
 
 export const isRefreshScheduleOpenState = atom({
@@ -131,7 +132,7 @@ export const myAssignmentsState = selector({
             isFound = true;
           }
 
-          if (pocket_members.includes(fldValue)) {
+          if (pocket_members.some((member) => member.person_uid === fldValue)) {
             isFound = true;
             isBehalf = true;
           }
@@ -145,8 +146,8 @@ export const myAssignmentsState = selector({
             obj.month_value = monthValue;
             obj.id = window.crypto.randomUUID();
             obj.weekOf = schedule.weekOf;
-            obj[fld] = fldValue;
-            obj[fldDispName] = fldDispNameValue;
+            obj.person = fldValue;
+            obj.personDispName = fldDispNameValue;
 
             // Chairman History
             if (fld === 'chairmanMM_A') {
@@ -198,21 +199,11 @@ export const myAssignmentsState = selector({
               const assTime = schedule[timeFld];
               const assistantDispName = schedule[assistantFldDispName];
 
-              if (assType === 101) {
-                obj.assignmentName = getI18n().t('initialCall');
-              } else if (assType === 102) {
-                obj.assignmentName = getI18n().t('returnVisit');
-              } else if (assType === 103) {
-                obj.assignmentName = getI18n().t('bibleStudy');
-              } else if (assType === 104) {
-                obj.assignmentName = getI18n().t('talk');
-              } else if (assType === 108) {
-                obj.assignmentName = getI18n().t('memorialInvite');
-              }
-
-              obj[assistantFldDispName] = assistantDispName;
+              obj.assignmentName = `${getAssignmentName(assType)} - ${getI18n().t('student')}`;
+              obj.assistantDispName = assistantDispName;
               obj.assignmentTime = assTime;
               obj.assignmentSource = assSource;
+              obj.assignmentType = 'ayf';
               obj.class = stuclass;
               obj.studyPoint = studyPoint;
             }
@@ -221,6 +212,7 @@ export const myAssignmentsState = selector({
             if (fld.startsWith('ass') && fld.includes('_ass_')) {
               const stuclass = fld.split('_')[2];
               const studyFld = fld.split('_')[0] + '_study';
+              const weekFld = fld.split('_')[0] + '_type';
               const sourceFld = fld.split('_')[0] + '_src';
               const timeFld = fld.split('_')[0] + '_time';
               const studentFld = fld.replace('_ass_', '_stu_');
@@ -229,12 +221,13 @@ export const myAssignmentsState = selector({
               const assSource = schedule[sourceFld];
               const assTime = schedule[timeFld];
               const studentDispName = schedule[studentFldDispName];
+              const assType = schedule[weekFld];
 
-              obj.assignmentName = getI18n().t('assistant');
-
-              obj[studentFldDispName] = studentDispName;
+              obj.assignmentName = `${getAssignmentName(assType)} - ${getI18n().t('assistant')}`;
+              obj.studentForAssistant = studentDispName;
               obj.assignmentTime = assTime;
               obj.assignmentSource = assSource;
+              obj.assignmentType = 'ayf';
               obj.class = stuclass;
               obj.studyPoint = studyPoint;
             }
@@ -277,6 +270,9 @@ export const myAssignmentsState = selector({
       }
     }
 
-    return myItems;
+    const finalResult = [...myItems];
+    finalResult.reverse();
+
+    return finalResult;
   },
 });

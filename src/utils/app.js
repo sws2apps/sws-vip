@@ -62,6 +62,10 @@ export const fetchNotifications = async () => {
     if (isOnline && apiHost !== '') {
       const res = await fetch(`${apiHost}api/users/announcement`, {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          app: 'sws-vip',
+        },
       });
 
       const data = await res.json();
@@ -94,5 +98,27 @@ export const getErrorMessage = (msg) => {
       return t('internalError');
     default:
       return msg;
+  }
+};
+
+export const getAssignmentName = (assType) => {
+  if (assType === 101) {
+    return getI18n().t('initialCall');
+  }
+
+  if (assType === 102) {
+    return getI18n().t('returnVisit');
+  }
+
+  if (assType === 103) {
+    return getI18n().t('bibleStudy');
+  }
+
+  if (assType === 104) {
+    return getI18n().t('talk');
+  }
+
+  if (assType === 108) {
+    return getI18n().t('memorialInvite');
   }
 };

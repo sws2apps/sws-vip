@@ -115,7 +115,6 @@
   "bibleStudy": "Bible Study",
   "talk": "Talk",
   "memorialInvite": "Memorial Invitation",
-  "assistant": "Apply Yourself to the Field Ministry - Assistant",
   "lcPart": "Living as Christians - Part",
   "cbsConductor": "Congregation Bible Study - Conductor",
   "cbsReader": "Congregation Bible Study - Reader",
@@ -139,5 +138,9 @@
   "shortDateFormat": "mm/dd/yyyy",
   "shortDatePickerFormat": "MM/dd/yyyy",
   "waitSignOut": "Please wait! Don’t close your browser ...",
-  "signInNoInternet": "Sign in to your account"
+  "signInNoInternet": "Sign in to your account",
+  "bibleReading": "Bible Reading",
+  "presentedBy": "Delivered by: ",
+  "student": "Student",
+  "assistant": "Assistant"
 }
