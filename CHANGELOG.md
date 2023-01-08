@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/sws2apps/sws-vip/compare/v1.1.1...v1.2.0) (2023-01-08)
+
+
+### Features
+
+* **app:** migrate from browserRouter to hashRouter ([3260e03](https://github.com/sws2apps/sws-vip/commit/3260e03508a0ad47cbbe9f86215a5b14e56f5b8d))
+
 ## [1.1.1](https://github.com/sws2apps/sws-vip/compare/v1.1.0...v1.1.1) (2023-01-08)
 
 
