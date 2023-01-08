@@ -115,7 +115,6 @@
   "bibleStudy": "Fampianarana Baiboly",
   "talk": "Lahateny",
   "memorialInvite": "Fanasana Fahatsiarovana",
-  "assistant": "Fampiofanana Amin’ny Fanompoana - Mpanampy",
   "lcPart": "Anjara - Ny Fiainantsika Kristianina",
   "cbsConductor": "Mpitarika - Fianarana Baiboly",
   "cbsReader": "Mpamaky - Fianarana Baiboly",
@@ -139,5 +138,9 @@
   "shortDateFormat": "dd/mm/yyyy",
   "shortDatePickerFormat": "dd/MM/yyyy",
   "waitSignOut": "Miandrasa kely azafady ...",
-  "signInNoInternet": "Hiditra amin’ny kaontinao"
+  "signInNoInternet": "Hiditra amin’ny kaontinao",
+  "bibleReading": "Famakiana Baiboly",
+  "presentedBy": "Anjara ataon’i: ",
+  "student": "Mitarika",
+  "assistant": "Mpanampy"
 }
