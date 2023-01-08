@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/sws2apps/sws-vip/compare/v1.1.0...v1.1.1) (2023-01-08)
+
+
+### Bug Fixes
+
+* **schedules:** handle scenario when no meeting schedule was published ([8263d7b](https://github.com/sws2apps/sws-vip/commit/8263d7b934e3ecf702180574ef1baddb438d4c6c))
+
 # [1.1.0](https://github.com/sws2apps/sws-vip/compare/v1.0.0...v1.1.0) (2023-01-08)
 
 
