@@ -1,3 +1,58 @@
+# [1.1.0](https://github.com/sws2apps/sws-vip/compare/v1.0.0...v1.1.0) (2023-01-08)
+
+
+### Bug Fixes
+
+* **manifest:** update app description ([8b96d04](https://github.com/sws2apps/sws-vip/commit/8b96d0459a8f2e54a2552f17fb702f242a62d160))
+
+
+### Features
+
+* **app:** view another members assignments ([b5ed6db](https://github.com/sws2apps/sws-vip/commit/b5ed6dbaac77b91821919e5a3523e908b046af1c))
+* **app:** view midweek meeting schedule ([82313bd](https://github.com/sws2apps/sws-vip/commit/82313bd637701b8100a42d61c1801ac7d9d8d23c))
+* **deps:** bump @emotion/react from 11.10.4 to 11.10.5 ([0fd0f81](https://github.com/sws2apps/sws-vip/commit/0fd0f81b70275ff146dc391889981433127aeb82))
+* **deps:** bump @emotion/styled from 11.10.4 to 11.10.5 ([3438283](https://github.com/sws2apps/sws-vip/commit/3438283bd8e4947aaab06142587c773116c28f55))
+* **deps:** bump @fingerprintjs/fingerprintjs-pro from 3.7.1 to 3.8.0 ([131d4d1](https://github.com/sws2apps/sws-vip/commit/131d4d1f9bd4c1c1f50c87c10cd710dbfeb4a898))
+* **deps:** bump @fingerprintjs/fingerprintjs-pro from 3.8.0 to 3.8.1 ([b33f5e5](https://github.com/sws2apps/sws-vip/commit/b33f5e5c66707ed09b8c3cb8cacafd29a49c91ff))
+* **deps:** bump @mui/icons-material from 5.10.14 to 5.10.15 ([58ad5fa](https://github.com/sws2apps/sws-vip/commit/58ad5fa0e14e89a1e4af93144620c9d24c1542d6))
+* **deps:** bump @mui/icons-material from 5.10.15 to 5.10.16 ([4966d22](https://github.com/sws2apps/sws-vip/commit/4966d22d1baffec74e9d7c357e789091b2f7d289))
+* **deps:** bump @mui/icons-material from 5.10.16 to 5.11.0 ([4caa0f2](https://github.com/sws2apps/sws-vip/commit/4caa0f28791ba51c16ed5f170d669b8571790920))
+* **deps:** bump @mui/icons-material from 5.10.9 to 5.10.14 ([db3b893](https://github.com/sws2apps/sws-vip/commit/db3b8936ad47032b4f449a26909c9572715ffb60))
+* **deps:** bump @mui/material from 5.10.10 to 5.10.11 ([502106e](https://github.com/sws2apps/sws-vip/commit/502106e3e4995a9f9ffbccff2cfdb958c7089906))
+* **deps:** bump @mui/material from 5.10.11 to 5.10.12 ([12b34ac](https://github.com/sws2apps/sws-vip/commit/12b34ac4db34be7c6f11eb00b698476ae4299ba7))
+* **deps:** bump @mui/material from 5.10.12 to 5.10.13 ([c21a69e](https://github.com/sws2apps/sws-vip/commit/c21a69e05797ea8f058a2c35ecac5a92a6f7a6a8))
+* **deps:** bump @mui/material from 5.10.13 to 5.10.14 ([c8aed64](https://github.com/sws2apps/sws-vip/commit/c8aed6435210986cc6d6d58c477d8c7e972b5e5a))
+* **deps:** bump @mui/material from 5.10.14 to 5.10.15 ([40b543e](https://github.com/sws2apps/sws-vip/commit/40b543ecf3fd87b0ed3289dc310f5bb049fb860c))
+* **deps:** bump @mui/material from 5.10.15 to 5.10.16 ([d4b4a1a](https://github.com/sws2apps/sws-vip/commit/d4b4a1a9917854284a4706618d6de502122b6f84))
+* **deps:** bump @mui/material from 5.10.16 to 5.10.17 ([d2e27ca](https://github.com/sws2apps/sws-vip/commit/d2e27caf7f8694619aaf2d77ef420432f059edce))
+* **deps:** bump @mui/material from 5.10.17 to 5.11.0 ([6bd9858](https://github.com/sws2apps/sws-vip/commit/6bd98583d9ab45f24c319a368c258cca59d32d94))
+* **deps:** bump @mui/material from 5.10.9 to 5.10.10 ([9dd4cb2](https://github.com/sws2apps/sws-vip/commit/9dd4cb2957289017319340a4132ce488f53b0152))
+* **deps:** bump @mui/material from 5.11.0 to 5.11.1 ([7109676](https://github.com/sws2apps/sws-vip/commit/7109676364df32ffc719e5168e9f8cef99718b83))
+* **deps:** bump @mui/material from 5.11.1 to 5.11.2 ([144bb82](https://github.com/sws2apps/sws-vip/commit/144bb8250d3ee3f53119a0ed431e3c5300af71ee))
+* **deps:** bump @mui/material from 5.11.2 to 5.11.3 ([796335a](https://github.com/sws2apps/sws-vip/commit/796335a7b910062fbca771cbd24847aa7926ade0))
+* **deps:** bump i18next from 21.10.0 to 22.0.1 ([7fd8ca8](https://github.com/sws2apps/sws-vip/commit/7fd8ca84c111cd6c1046b60edb0d6382837e0b2d))
+* **deps:** bump i18next from 22.0.1 to 22.0.3 ([a94cd6d](https://github.com/sws2apps/sws-vip/commit/a94cd6d7520c25a4b67677dca08d40356808f871))
+* **deps:** bump i18next from 22.0.3 to 22.0.4 ([258d347](https://github.com/sws2apps/sws-vip/commit/258d347cdd8d5e51a81e079ffa5aefd845279ffe))
+* **deps:** bump i18next from 22.0.4 to 22.0.5 ([eea9e49](https://github.com/sws2apps/sws-vip/commit/eea9e490c95b0d9c7eac22e2807dd3f62a547c1d))
+* **deps:** bump i18next from 22.0.5 to 22.0.6 ([8413c73](https://github.com/sws2apps/sws-vip/commit/8413c7301b9ecbe6ffb5421597b8fc2eb9abb6c8))
+* **deps:** bump i18next from 22.0.6 to 22.0.8 ([2cef357](https://github.com/sws2apps/sws-vip/commit/2cef357621250fe0f3db38ed38cb4479859f7cdb))
+* **deps:** bump i18next from 22.0.8 to 22.1.4 ([c9b72b5](https://github.com/sws2apps/sws-vip/commit/c9b72b576fc30a9018b8faec93672d899f71fea0))
+* **deps:** bump i18next from 22.1.4 to 22.1.5 ([d2f4a7b](https://github.com/sws2apps/sws-vip/commit/d2f4a7b09820675a2f5d13c4d41da91614f5c747))
+* **deps:** bump i18next from 22.1.5 to 22.4.3 ([1f436cb](https://github.com/sws2apps/sws-vip/commit/1f436cb4913538fca002dc19cdd9fd413479acd1))
+* **deps:** bump i18next from 22.4.3 to 22.4.5 ([7c49d22](https://github.com/sws2apps/sws-vip/commit/7c49d2246d6c8e8d9264740f036be34d5dc2deaa))
+* **deps:** bump i18next from 22.4.5 to 22.4.6 ([8b9b254](https://github.com/sws2apps/sws-vip/commit/8b9b254cbc4304ec45d282ba6c8b41ac413eca8d))
+* **deps:** bump i18next from 22.4.6 to 22.4.8 ([a9cfa82](https://github.com/sws2apps/sws-vip/commit/a9cfa8264a4d621a9dbcb54ee36121804af28617))
+* **deps:** bump json5 from 1.0.1 to 1.0.2 ([4f2ab82](https://github.com/sws2apps/sws-vip/commit/4f2ab82a17893901e9c6de8a5f080a5a0da5fddb))
+* **deps:** bump react-i18next from 11.18.6 to 12.0.0 ([2cf69c5](https://github.com/sws2apps/sws-vip/commit/2cf69c550e04ed1490758ef3b0f1b7487e65f9d9))
+* **deps:** bump react-i18next from 12.0.0 to 12.1.0 ([c98f714](https://github.com/sws2apps/sws-vip/commit/c98f714c5eeb1fab70ba94b7921c300703b84d62))
+* **deps:** bump react-i18next from 12.1.0 to 12.1.1 ([75bd599](https://github.com/sws2apps/sws-vip/commit/75bd5992fab3d3daa3f53911b7ad06ca7c85ecf1))
+* **deps:** bump react-router-dom from 6.4.2 to 6.4.3 ([d12b12e](https://github.com/sws2apps/sws-vip/commit/d12b12eb85a5f3772c8119385f305eaca1cad84d))
+* **deps:** bump react-router-dom from 6.4.3 to 6.4.4 ([e45c293](https://github.com/sws2apps/sws-vip/commit/e45c293fd233cafe8c96fdddfa8a947caf491469))
+* **deps:** bump react-router-dom from 6.4.4 to 6.4.5 ([3d98554](https://github.com/sws2apps/sws-vip/commit/3d98554a4d5e46b8eef6fdedc6d204e7cd0d378e))
+* **deps:** bump react-router-dom from 6.4.5 to 6.5.0 ([3aaf02e](https://github.com/sws2apps/sws-vip/commit/3aaf02ed5380c9347765aff84c723d06caab656a))
+* **deps:** bump react-router-dom from 6.5.0 to 6.6.0 ([6fc0231](https://github.com/sws2apps/sws-vip/commit/6fc02314295642158397e9b3420e1eb4b8fbfcd4))
+* **deps:** bump react-router-dom from 6.6.0 to 6.6.1 ([dca6ddb](https://github.com/sws2apps/sws-vip/commit/dca6ddbfe21b084c45995313a797ac9b4b2bc4e1))
+
 # 1.0.0 (2022-10-13)
 
 ### Features
