@@ -1,10 +1,6 @@
 # Congregation Program for Everyone (CPE)
 
-- This module of the CPE program will allow you to handle various tasks for baptized and appointed brothers.
-
-## Who should use this module?
-
-This module is designed for use by baptized and appointed brothers.
+This module of the CPE program is used to handle various tasks for baptized and appointed brothers for Jehovah’s Witnesses.
 
 ## What are the device requirements to open CPE?
 
