@@ -84,13 +84,19 @@ export const getErrorMessage = (msg) => {
   switch (msg) {
     case 'ACCOUNT_IN_USE':
       return t('accountExist');
-    case 'EMAIL_NOT_FOUND' || 'INVALID_EMAIL' || 'MISSING_EMAIL':
+    case 'EMAIL_NOT_FOUND':
+      return t('accountNotFound');
+    case 'INVALID_EMAIL':
+      return t('accountNotFound');
+    case 'MISSING_EMAIL':
       return t('accountNotFound');
     case 'INVALID_PASSWORD':
       return t('incorrectInfo');
     case 'USER_DISABLED':
       return t('accountDisabled');
-    case 'BLOCKED_TEMPORARILY_TRY_AGAIN' || 'BLOCKED_TEMPORARILY':
+    case 'BLOCKED_TEMPORARILY_TRY_AGAIN':
+      return t('hostBlocked');
+    case 'BLOCKED_TEMPORARILY':
       return t('hostBlocked');
     case 'TOKEN_INVALID':
       return t('code2faIncorrect');

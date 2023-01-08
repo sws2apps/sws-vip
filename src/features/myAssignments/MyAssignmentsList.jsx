@@ -29,9 +29,11 @@ const MyAssignmentsList = () => {
       const tempData4 = [];
       Object.keys(tempData3).forEach(function (key, index) {
         const months = [...tempData3[key]];
+        const finalM = months.reverse();
+
         const obj = {
           month_value: key,
-          month_assignments: months.reverse(),
+          month_assignments: finalM,
         };
 
         tempData4.push(obj);

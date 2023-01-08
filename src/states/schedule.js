@@ -30,10 +30,10 @@ export const scheduleLocalState = selector({
       // loop through all schedules to build weekly schedule
       const { midweekMeeting } = schedules;
       if (midweekMeeting) {
-        for (let a = 0; a < midweekMeeting.length; a++) {
-          const schedules = midweekMeeting[a].schedules;
-          for (let b = 0; b < schedules.length; b++) {
-            schedule.push(schedules[b]);
+        for (const item of midweekMeeting) {
+          const schedules = item.schedules;
+          for (const tmpSchedule of schedules) {
+            schedule.push(tmpSchedule);
           }
         }
       }
@@ -41,11 +41,9 @@ export const scheduleLocalState = selector({
       // loop through all sources to build weekly schedule
       const srcMidweekMeeting = sources.midweekMeeting;
       if (srcMidweekMeeting) {
-        for (let a = 0; a < srcMidweekMeeting.length; a++) {
-          const src = srcMidweekMeeting[a].sources;
-          for (let b = 0; b < src.length; b++) {
-            const weekData = src[b];
-
+        for (const item of srcMidweekMeeting) {
+          const sources = item.sources;
+          for (const weekData of sources) {
             let obj = {};
             obj = { ...weekData };
 
@@ -114,8 +112,7 @@ export const myAssignmentsState = selector({
     ];
 
     let myItems = [];
-    for (let a = 0; a < schedules.length; a++) {
-      const schedule = schedules[a];
+    for (const schedule of schedules) {
       const weekDate = new Date(schedule.weekOf);
       const dayDiff = Math.round((weekDate - currentWeekDate) / msInDay);
 
