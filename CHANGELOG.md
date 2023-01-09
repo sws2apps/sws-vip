@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/sws2apps/sws-vip/compare/v1.2.0...v1.2.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **app:** update api endpoint ([cbdeb02](https://github.com/sws2apps/sws-vip/commit/cbdeb02805ececf1b8465fdc3ecb8ff374e4fd39))
+* **app:** update csp for new api endpoint ([64b28f3](https://github.com/sws2apps/sws-vip/commit/64b28f31391dcbb8f10e0e778ec795e3d9f238c2))
+
 # [1.2.0](https://github.com/sws2apps/sws-vip/compare/v1.1.1...v1.2.0) (2023-01-08)
 
 
