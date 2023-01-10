@@ -143,7 +143,7 @@ const SetupMFA = () => {
                   cong_number,
                   userPass: encPwd,
                   isLoggedOut: false,
-                  local_id: pocket_local_id.person_uid,
+                  local_id: pocket_local_id === null ? '' : pocket_local_id.person_uid,
                   pocket_members,
                 };
 

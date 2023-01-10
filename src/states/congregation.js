@@ -69,3 +69,8 @@ export const isAdminCongState = atom({
   key: 'isAdminCong',
   default: false,
 });
+
+export const republishScheduleState = atom({
+  key: 'republishSchedule',
+  default: false,
+});

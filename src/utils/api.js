@@ -1,7 +1,7 @@
 import { promiseGetRecoil, promiseSetRecoil } from 'recoil-outside';
 import { dbUpdateAppSettings } from '../indexedDb/dbAppSettings';
 import { dbUpdateSchedule } from '../indexedDb/dbSchedule';
-import { classCountState, congIDState } from '../states/congregation';
+import { classCountState, congIDState, republishScheduleState } from '../states/congregation';
 import {
   apiHostState,
   isOnlineState,
@@ -31,6 +31,11 @@ export const dbRefreshLocalSchedule = async () => {
     });
 
     const { cong_schedule, cong_sourceMaterial, class_count, source_lang } = await res.json();
+    if (source_lang === undefined) {
+      await promiseSetRecoil(republishScheduleState, true);
+      return;
+    }
+
     await dbUpdateSchedule({ cong_schedule, cong_sourceMaterial });
     await dbUpdateAppSettings({ class_count });
     await promiseSetRecoil(classCountState, class_count);

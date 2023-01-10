@@ -12,6 +12,7 @@ import {
   meetingTimeState,
   pocketLocalIDState,
   pocketMembersState,
+  republishScheduleState,
   usernameState,
 } from '../states/congregation';
 import appDb from '../indexedDb/appDb';
@@ -41,7 +42,8 @@ export const loadApp = async () => {
   await promiseSetRecoil(meetingDayState, meeting_day || 3);
   await promiseSetRecoil(meetingTimeState, meeting_time || new Date(Date.now()));
   await promiseSetRecoil(appLangState, app_lang || 'e');
-  await promiseSetRecoil(sourceLangState, source_lang || 'e');
+  await promiseSetRecoil(sourceLangState, source_lang);
+  if (source_lang === undefined) await promiseSetRecoil(republishScheduleState, true);
   await promiseSetRecoil(pocketLocalIDState, local_id || '');
   await promiseSetRecoil(pocketMembersState, pocket_members || []);
 
@@ -102,6 +104,10 @@ export const getErrorMessage = (msg) => {
       return t('code2faIncorrect');
     case 'INTERNAL_ERROR':
       return t('internalError');
+    case 'ACCOUNT_CREATION_FAILED':
+      return t('createAccountFailed');
+    case 'EMAIL_NOT_SUPPORTED':
+      return t('emailNotSupported');
     default:
       return msg;
   }

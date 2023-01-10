@@ -19,7 +19,7 @@ import {
   ScheduleRowAYFContainer,
   ScheduleRowContainer,
 } from '../features/schedules';
-import { classCountState } from '../states/congregation';
+import { classCountState, republishScheduleState } from '../states/congregation';
 import { shortDateFormatState, sourceLangState } from '../states/main';
 import { scheduleLocalState } from '../states/schedule';
 
@@ -30,6 +30,7 @@ const WeeklyAssignments = () => {
   const shortDateFormat = useRecoilValue(shortDateFormatState);
   const schedules = useRecoilValue(scheduleLocalState);
   const sourceLang = useRecoilValue(sourceLangState);
+  const isRepublish = useRecoilValue(republishScheduleState);
 
   const [tgwTalkSrc, setTgwTalkSrc] = useState('');
   const [bibleReadingSrc, setBibleReadingSrc] = useState('');
@@ -122,7 +123,7 @@ const WeeklyAssignments = () => {
 
   useEffect(() => {
     const loadCurrentWeekData = async () => {
-      const lang = sourceLang.toUpperCase();
+      const lang = sourceLang?.toUpperCase();
 
       setIsLoading(true);
 
@@ -215,10 +216,10 @@ const WeeklyAssignments = () => {
       setIsLoading(false);
     };
 
-    if (currentWeek !== '') {
+    if (!isRepublish && currentWeek !== '') {
       loadCurrentWeekData();
     }
-  }, [shortDateFormat, sourceLang, currentWeek, schedules, t]);
+  }, [isRepublish, shortDateFormat, sourceLang, currentWeek, schedules, t]);
 
   useEffect(() => {
     if (schedules.length > 0) {
@@ -252,7 +253,7 @@ const WeeklyAssignments = () => {
         },
       }}
     >
-      {schedules.length === 0 && (
+      {(schedules.length === 0 || isRepublish) && (
         <Container
           sx={{
             display: 'flex',

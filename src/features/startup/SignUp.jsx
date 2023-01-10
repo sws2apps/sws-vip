@@ -67,9 +67,12 @@ const SignUp = () => {
       setHasErrorEmail(false);
       setHasErrorPwd(false);
       setHasErrorConfirmPwd(false);
+
+      const { isValid: isValidEmail, isSupportedDomain: isSupportedEmail } = isEmailValid(userTmpEmail);
       if (
         userTmpFullname.length >= 3 &&
-        isEmailValid(userTmpEmail) &&
+        isValidEmail &&
+        isSupportedEmail &&
         userTmpPwd.length >= 10 &&
         userTmpPwd === userTmpConfirmPwd
       ) {
@@ -106,8 +109,14 @@ const SignUp = () => {
         if (userTmpFullname.length < 3) {
           setHasErrorFullname(true);
         }
-        if (!isEmailValid(userTmpEmail)) {
+        if (!isValidEmail || !isSupportedEmail) {
           setHasErrorEmail(true);
+        }
+        if (!isSupportedEmail) {
+          setIsProcessing(false);
+          setAppMessage(getErrorMessage('EMAIL_NOT_SUPPORTED'));
+          setAppSeverity('warning');
+          setAppSnackOpen(true);
         }
         if (userTmpPwd.length < 10) {
           setHasErrorPwd(true);
@@ -119,7 +128,7 @@ const SignUp = () => {
     } catch (err) {
       if (!abortCont.current.signal.aborted) {
         setIsProcessing(false);
-        setAppMessage(t('createAccountFailed'));
+        setAppMessage(getErrorMessage('ACCOUNT_CREATION_FAILED'));
         setAppSeverity('error');
         setAppSnackOpen(true);
       }
