@@ -1,3 +1,19 @@
+# [1.3.0](https://github.com/sws2apps/sws-vip/compare/v1.2.1...v1.3.0) (2023-01-10)
+
+
+### Bug Fixes
+
+* **startup:** handle invalid data from old cpe app, disallow some email domains ([057fa3f](https://github.com/sws2apps/sws-vip/commit/057fa3f46a6c573fc1902d0aabdbafba4f8935a8))
+
+
+### Features
+
+* **deps:** bump @mui/lab from 5.0.0-alpha.114 to 5.0.0-alpha.115 ([aab2a77](https://github.com/sws2apps/sws-vip/commit/aab2a770c2cff2c9d0fa457dcc2aded9b564271e))
+* **deps:** bump @mui/material from 5.11.3 to 5.11.4 ([117c2b5](https://github.com/sws2apps/sws-vip/commit/117c2b5f0d89cdf85c049ff2fc8afb71403d3c07))
+* **deps:** bump @tanstack/react-query from 4.20.9 to 4.22.0 ([c55d6b1](https://github.com/sws2apps/sws-vip/commit/c55d6b1d69695a397d7ea466a8824818f99dbf88))
+* **deps:** bump i18next from 22.4.8 to 22.4.9 ([b8bdfa5](https://github.com/sws2apps/sws-vip/commit/b8bdfa5d902adeb46ec4fef50dda23b1be4ad648))
+* **deps:** bump react-router-dom from 6.6.1 to 6.6.2 ([61a956b](https://github.com/sws2apps/sws-vip/commit/61a956bb02436c9ee8c3ea7bdb8d252c3ccab44f))
+
 ## [1.2.1](https://github.com/sws2apps/sws-vip/compare/v1.2.0...v1.2.1) (2023-01-09)
 
 
