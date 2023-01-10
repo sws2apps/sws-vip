@@ -143,5 +143,6 @@
   "presentedBy": "Anjara ataon’i: ",
   "student": "Mitarika",
   "assistant": "Mpanampy",
-  "noSchedules": "Tsy mbola misy fandaharana nozaraina. Andramo indray rehefa afaka kelikely"
+  "noSchedules": "Tsy mbola misy fandaharana nozaraina. Andramo indray rehefa afaka kelikely",
+  "emailNotSupported": "Tsy mety io adiresy email io. Adiresy hafa ampiasaina azafady."
 }

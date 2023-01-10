@@ -143,5 +143,6 @@
   "presentedBy": "Delivered by: ",
   "student": "Student",
   "assistant": "Assistant",
-  "noSchedules": "No meeting schedule was published so far. Try again later"
+  "noSchedules": "No meeting schedule was published so far. Try again later",
+  "emailNotSupported": "Sorry, we do not support this email address. Please use another one."
 }
