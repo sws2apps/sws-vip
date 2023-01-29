@@ -68,14 +68,8 @@ const SignUp = () => {
       setHasErrorPwd(false);
       setHasErrorConfirmPwd(false);
 
-      const { isValid: isValidEmail, isSupportedDomain: isSupportedEmail } = isEmailValid(userTmpEmail);
-      if (
-        userTmpFullname.length >= 3 &&
-        isValidEmail &&
-        isSupportedEmail &&
-        userTmpPwd.length >= 10 &&
-        userTmpPwd === userTmpConfirmPwd
-      ) {
+      const isValidEmail = isEmailValid(userTmpEmail);
+      if (userTmpFullname.length >= 3 && isValidEmail && userTmpPwd.length >= 10 && userTmpPwd === userTmpConfirmPwd) {
         setIsProcessing(true);
         const reqPayload = {
           email: userTmpEmail,
@@ -109,11 +103,8 @@ const SignUp = () => {
         if (userTmpFullname.length < 3) {
           setHasErrorFullname(true);
         }
-        if (!isValidEmail || !isSupportedEmail) {
+        if (!isValidEmail) {
           setHasErrorEmail(true);
-        }
-        if (!isSupportedEmail) {
-          setIsProcessing(false);
           setAppMessage(getErrorMessage('EMAIL_NOT_SUPPORTED'));
           setAppSeverity('warning');
           setAppSnackOpen(true);
