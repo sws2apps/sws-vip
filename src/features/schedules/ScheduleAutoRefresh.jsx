@@ -7,7 +7,9 @@ const ScheduleAutoRefresh = () => {
   const congAccountConnected = useRecoilValue(congAccountConnectedState);
 
   useEffect(() => {
-    dbRefreshLocalSchedule();
+    if (congAccountConnected) {
+      dbRefreshLocalSchedule();
+    }
   }, [congAccountConnected]);
 
   return <></>;

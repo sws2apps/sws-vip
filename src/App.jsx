@@ -48,7 +48,7 @@ const App = ({ updatePwa }) => {
       errorElement: <ErrorBoundary />,
       children: [
         { index: true, element: <DashboardMenu /> },
-        { path: '/meeting-schedule', element: <WeeklyAssignments /> },
+        { path: '/meeting-schedule/:weekToFormat', element: <WeeklyAssignments /> },
         { path: '/user-settings', element: <UserSettings /> },
       ],
     },
