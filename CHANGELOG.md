@@ -1,3 +1,18 @@
+# [1.4.0](https://github.com/sws2apps/sws-vip/compare/v1.3.0...v1.4.0) (2023-01-29)
+
+
+### Features
+
+* **app:** update to support meeting part override ([34d7256](https://github.com/sws2apps/sws-vip/commit/34d7256f80e4cdc299a7671a577648236daa37b5))
+* **deps:** bump @mui/lab from 5.0.0-alpha.115 to 5.0.0-alpha.116 ([6433de1](https://github.com/sws2apps/sws-vip/commit/6433de186ac24e9b2b74101fcdbb98b5ada52b2d))
+* **deps:** bump @mui/lab from 5.0.0-alpha.116 to 5.0.0-alpha.117 ([75555f1](https://github.com/sws2apps/sws-vip/commit/75555f185e00f1b9f7bc3a92ce3f2eb0b6526ad5))
+* **deps:** bump @mui/material from 5.11.4 to 5.11.5 ([989bee2](https://github.com/sws2apps/sws-vip/commit/989bee284db34af1aa35aed09f37c28e2b5b24dc))
+* **deps:** bump @mui/material from 5.11.5 to 5.11.6 ([05ffd76](https://github.com/sws2apps/sws-vip/commit/05ffd76a5bb978de5f1eb60e2ed1fb25cb16b6f9))
+* **deps:** bump @tanstack/react-query from 4.22.0 to 4.23.0 ([277e074](https://github.com/sws2apps/sws-vip/commit/277e07483ebb0114b52e9a5f142ba2716c0e6c25))
+* **deps:** bump dexie from 3.2.2 to 3.2.3 ([953db5a](https://github.com/sws2apps/sws-vip/commit/953db5afb282e0b2487e9fb227818c883c5d0696))
+* **deps:** bump react-router-dom from 6.6.2 to 6.7.0 ([dfeded4](https://github.com/sws2apps/sws-vip/commit/dfeded45199c5a0f9ecae8b4284f9785095f4081))
+* **deps:** bump react-router-dom from 6.7.0 to 6.8.0 ([b5d8691](https://github.com/sws2apps/sws-vip/commit/b5d8691a79b67e0c8d0164e9f4ded390bc80d480))
+
 # [1.3.0](https://github.com/sws2apps/sws-vip/compare/v1.2.1...v1.3.0) (2023-01-10)
 
 
