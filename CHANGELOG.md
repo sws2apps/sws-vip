@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/sws2apps/sws-vip/compare/v1.4.0...v1.4.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* **schedules:** fix issue where single override is not working ([8367312](https://github.com/sws2apps/sws-vip/commit/836731234fc9a75ec48719429dc92c9f934457f7))
+
 # [1.4.0](https://github.com/sws2apps/sws-vip/compare/v1.3.0...v1.4.0) (2023-01-29)
 
 
