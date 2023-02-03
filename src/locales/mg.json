@@ -144,5 +144,6 @@
   "student": "Mitarika",
   "assistant": "Mpanampy",
   "noSchedules": "Tsy mbola misy fandaharana nozaraina. Andramo indray rehefa afaka kelikely",
-  "emailNotSupported": "Tsy mety na tsy azo ampiasaina io adiresy email io"
+  "emailNotSupported": "Tsy mety na tsy azo ampiasaina io adiresy email io",
+  "noSchedule": "Tsy misy fandaharana amin’io herinandro io"
 }
