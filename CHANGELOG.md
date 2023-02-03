@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/sws2apps/sws-vip/compare/v1.4.1...v1.5.0) (2023-02-03)
+
+
+### Bug Fixes
+
+* **schedules:** fix error when viewing weekly assignments ([aec1d9c](https://github.com/sws2apps/sws-vip/commit/aec1d9cc6ed54398ae4a15598a3f92a53e304eff))
+
+
+### Features
+
+* **deps:** bump @mui/lab from 5.0.0-alpha.117 to 5.0.0-alpha.118 ([fd40a0c](https://github.com/sws2apps/sws-vip/commit/fd40a0c683a5063974ee9492a2179a7a7a1e032e))
+* **deps:** bump @mui/material from 5.11.6 to 5.11.7 ([007fa52](https://github.com/sws2apps/sws-vip/commit/007fa52f3ad9bc61b8cdab1c931b5756a1bf8e63))
+* **deps:** bump @tanstack/react-query from 4.23.0 to 4.24.4 ([6fa7916](https://github.com/sws2apps/sws-vip/commit/6fa791675a3ee3af34d90e57ce6e5d60071e2f67))
+
 ## [1.4.1](https://github.com/sws2apps/sws-vip/compare/v1.4.0...v1.4.1) (2023-01-30)
 
 
