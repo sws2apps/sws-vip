@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/sws2apps/sws-vip/compare/v1.5.0...v1.5.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* **schedules:** handle invalid week value ([2b482ca](https://github.com/sws2apps/sws-vip/commit/2b482caaa31a6e0d2ed50068e94cae4ceeea33f5))
+
 # [1.5.0](https://github.com/sws2apps/sws-vip/compare/v1.4.1...v1.5.0) (2023-02-03)
 
 
