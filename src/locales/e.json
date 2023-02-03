@@ -144,5 +144,6 @@
   "student": "Student",
   "assistant": "Assistant",
   "noSchedules": "No meeting schedule was published so far. Try again later",
-  "emailNotSupported": "Sorry, the email is invalid or not supported"
+  "emailNotSupported": "Sorry, the email is invalid or not supported",
+  "noSchedule": "There is no schedule for this week"
 }
