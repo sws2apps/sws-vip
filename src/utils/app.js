@@ -115,11 +115,11 @@ export const getErrorMessage = (msg) => {
 };
 
 export const getAssignmentName = (assType) => {
-  if (assType === 101) {
+  if (assType === 101 || (assType >= 140 && assType < 170)) {
     return getI18n().t('initialCall');
   }
 
-  if (assType === 102) {
+  if (assType === 102 || (assType >= 170 && assType < 200)) {
     return getI18n().t('returnVisit');
   }
 
