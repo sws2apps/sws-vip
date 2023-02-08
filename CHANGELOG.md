@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/sws2apps/sws-vip/compare/v1.5.1...v1.6.0) (2023-02-08)
+
+
+### Features
+
+* **app:** add support for new assignment type format ([8960fdb](https://github.com/sws2apps/sws-vip/commit/8960fdb762b78cbfa433014c419f4bdcb4744df1))
+* **deps:** bump @mui/lab from 5.0.0-alpha.118 to 5.0.0-alpha.119 ([d68f535](https://github.com/sws2apps/sws-vip/commit/d68f535642b8f2f8c52bb49817de0df9be53bffb))
+* **deps:** bump @mui/material from 5.11.7 to 5.11.8 ([f2e940c](https://github.com/sws2apps/sws-vip/commit/f2e940c4a85aae0fef38e6a2f5feb6957d3c3553))
+* **deps:** bump @sws2apps/react-sw-helper from 1.9.0 to 1.10.0 ([26e3010](https://github.com/sws2apps/sws-vip/commit/26e3010b150e624be547aaaca58ba2dd27ac2c30))
+* **deps:** bump react-i18next from 12.1.4 to 12.1.5 ([b3d68e1](https://github.com/sws2apps/sws-vip/commit/b3d68e174f103ba41a00588a7c5dfb49725bc8da))
+* **deps:** bump react-router-dom from 6.8.0 to 6.8.1 ([a69b031](https://github.com/sws2apps/sws-vip/commit/a69b0316b4cc4714269a63a87995140562c525e0))
+* **deps:** bump validator from 13.7.0 to 13.9.0 ([d3645f9](https://github.com/sws2apps/sws-vip/commit/d3645f9b7a56c73d764b61d984795cbf67ea95f2))
+
 ## [1.5.1](https://github.com/sws2apps/sws-vip/compare/v1.5.0...v1.5.1) (2023-02-03)
 
 
