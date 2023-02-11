@@ -9,26 +9,18 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { appMessageState, appSeverityState, appSnackOpenState } from '../../states/notification';
 import {
-  apiHostState,
   isAppLoadState,
+  isCongAccountCreateState,
   isReEnrollMFAState,
   isSetupState,
   isUnauthorizedRoleState,
   isUserMfaSetupState,
   isUserMfaVerifyState,
   offlineOverrideState,
-  qrCodePathState,
-  secretTokenPathState,
-  startupProgressState,
-  userEmailState,
-  userIDState,
-  userPasswordState,
   visitorIDState,
 } from '../../states/main';
-import { congAccountConnectedState, congIDState } from '../../states/congregation';
-import { encryptString } from '../../utils/swsEncryption';
-import { dbUpdateAppSettings } from '../../indexedDb/dbAppSettings';
-import { getErrorMessage, loadApp } from '../../utils/app';
+import { congAccountConnectedState } from '../../states/congregation';
+import { apiHandleVerifyOTP } from '../../api/auth';
 import { runUpdater } from '../../utils/updater';
 
 const matchIsNumeric = (text) => {
@@ -40,9 +32,9 @@ const validateChar = (value, index) => {
 };
 
 const VerifyMFA = () => {
-  const abortCont = useRef();
+  const cancel = useRef();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [userOTP, setUserOTP] = useState('');
@@ -50,24 +42,17 @@ const VerifyMFA = () => {
   const setAppSnackOpen = useSetRecoilState(appSnackOpenState);
   const setAppSeverity = useSetRecoilState(appSeverityState);
   const setAppMessage = useSetRecoilState(appMessageState);
+  const setIsCongAccountCreate = useSetRecoilState(isCongAccountCreateState);
   const setIsUserMfaVerify = useSetRecoilState(isUserMfaVerifyState);
   const setIsUnauthorizedRole = useSetRecoilState(isUnauthorizedRoleState);
   const setIsSetup = useSetRecoilState(isSetupState);
   const setIsAppLoad = useSetRecoilState(isAppLoadState);
-  const setStartupProgress = useSetRecoilState(startupProgressState);
   const setCongAccountConnected = useSetRecoilState(congAccountConnectedState);
   const setOfflineOverride = useSetRecoilState(offlineOverrideState);
-  const setCongID = useSetRecoilState(congIDState);
-  const setUserID = useSetRecoilState(userIDState);
   const setIsReEnrollMFA = useSetRecoilState(isReEnrollMFAState);
   const setIsUserMfaSetup = useSetRecoilState(isUserMfaSetupState);
-  const setQrCodePath = useSetRecoilState(qrCodePathState);
-  const setSecretTokenPath = useSetRecoilState(secretTokenPathState);
 
-  const apiHost = useRecoilValue(apiHostState);
-  const userEmail = useRecoilValue(userEmailState);
   const visitorID = useRecoilValue(visitorIDState);
-  const userPwd = useRecoilValue(userPasswordState);
 
   const handleOtpChange = async (newValue) => {
     setUserOTP(newValue);
@@ -75,92 +60,44 @@ const VerifyMFA = () => {
 
   const handleVerifyOTP = useCallback(async () => {
     try {
-      abortCont.current = new AbortController();
+      setIsProcessing(true);
+      cancel.current = false;
 
-      if (userOTP.length === 6) {
-        setIsProcessing(true);
-        const reqPayload = {
-          token: userOTP,
-        };
+      const response = await apiHandleVerifyOTP(userOTP, false);
 
-        if (apiHost !== '') {
-          const res = await fetch(`${apiHost}api/mfa/verify-token`, {
-            method: 'POST',
-            signal: abortCont.current.signal,
-            headers: {
-              'Content-Type': 'application/json',
-              visitorid: visitorID,
-              email: userEmail,
-            },
-            body: JSON.stringify(reqPayload),
-          });
+      if (!cancel.current) {
+        if (response.success) {
+          setIsSetup(false);
 
-          const data = await res.json();
-          if (res.status === 200) {
-            const { id, cong_id, cong_name, cong_role, cong_number, pocket_local_id, pocket_members, username } = data;
-
-            if (cong_role.length > 0) {
-              // role approved
-              if (cong_role.includes('view_meeting_schedule')) {
-                localStorage.setItem('email', userEmail);
-
-                setCongID(cong_id);
-                // encrypt email & pwd
-                const encPwd = await encryptString(userPwd, JSON.stringify({ email: userEmail, pwd: userPwd }));
-
-                // save congregation update if any
-                const obj = {
-                  username,
-                  cong_name,
-                  cong_number,
-                  userPass: encPwd,
-                  isLoggedOut: false,
-                  local_id: pocket_local_id === null ? '' : pocket_local_id.person_uid,
-                  pocket_members,
-                };
-
-                await dbUpdateAppSettings(obj);
-
-                setUserID(id);
-
-                await loadApp();
-
-                setIsSetup(false);
-
-                await runUpdater();
-                setTimeout(() => {
-                  setStartupProgress(0);
-                  setOfflineOverride(false);
-                  setCongAccountConnected(true);
-                  setIsAppLoad(false);
-                }, [2000]);
-
-                return;
-              }
-            }
-
-            setIsProcessing(false);
-            setIsUserMfaVerify(false);
-            setIsUnauthorizedRole(true);
-          } else {
-            if (data.message) {
-              setIsProcessing(false);
-              setAppMessage(getErrorMessage(data.message));
-              setAppSeverity('warning');
-              setAppSnackOpen(true);
-            } else {
-              setSecretTokenPath(data.secret);
-              setQrCodePath(data.qrCode);
-              setIsReEnrollMFA(true);
-              setIsUserMfaSetup(true);
-              setIsProcessing(false);
-              setIsUserMfaVerify(false);
-            }
-          }
+          await runUpdater();
+          setTimeout(() => {
+            setOfflineOverride(false);
+            setCongAccountConnected(true);
+            setIsAppLoad(false);
+          }, [2000]);
         }
+
+        if (response.unauthorized) {
+          setIsUserMfaVerify(false);
+          setIsUnauthorizedRole(true);
+        }
+
+        if (response.reenroll) {
+          setIsReEnrollMFA(true);
+          setIsUserMfaSetup(true);
+          setIsUserMfaVerify(false);
+        }
+
+        if (response.createCongregation) {
+          setIsUserMfaVerify(false);
+          setIsCongAccountCreate(true);
+        }
+
+        setIsProcessing(false);
+        setOfflineOverride(false);
       }
     } catch (err) {
-      if (!abortCont.current.signal.aborted) {
+      if (!cancel.current) {
         setIsProcessing(false);
         setAppMessage(err.message);
         setAppSeverity('error');
@@ -168,27 +105,19 @@ const VerifyMFA = () => {
       }
     }
   }, [
-    apiHost,
     setAppMessage,
     setAppSeverity,
     setAppSnackOpen,
     setCongAccountConnected,
-    setCongID,
     setIsAppLoad,
+    setIsCongAccountCreate,
     setIsReEnrollMFA,
     setIsSetup,
     setIsUnauthorizedRole,
     setIsUserMfaSetup,
     setIsUserMfaVerify,
     setOfflineOverride,
-    setQrCodePath,
-    setSecretTokenPath,
-    setStartupProgress,
-    setUserID,
-    userEmail,
     userOTP,
-    userPwd,
-    visitorID,
   ]);
 
   useEffect(() => {
@@ -199,9 +128,9 @@ const VerifyMFA = () => {
 
   useEffect(() => {
     return () => {
-      if (abortCont.current) abortCont.current.abort();
+      cancel.current = true;
     };
-  }, [abortCont]);
+  }, []);
 
   useEffect(() => {
     const handlePaste = (e) => {
@@ -221,6 +150,8 @@ const VerifyMFA = () => {
       <Typography variant="h4" sx={{ marginBottom: '15px' }}>
         {t('mfaVerifyTitle')}
       </Typography>
+
+      <Typography sx={{ marginBottom: '15px' }}>{t('mfaVerifyDesc')}</Typography>
 
       <Box sx={{ width: '100%', maxWidth: '450px', marginTop: '20px' }}>
         <MuiOtpInput
@@ -252,7 +183,7 @@ const VerifyMFA = () => {
           onClick={handleVerifyOTP}
           endIcon={isProcessing ? <CircularProgress size={25} /> : null}
         >
-          {t('verify')}
+          {t('mfaVerify')}
         </Button>
       </Box>
     </Container>

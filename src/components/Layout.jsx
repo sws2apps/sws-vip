@@ -1,55 +1,34 @@
 import { useEffect, Suspense } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import usePwa2 from 'use-pwa2/dist/index.js';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import About from '../features/about';
 import RootModal from './RootModal';
 import UserAutoLogin from '../features/userAutoLogin';
 import { WhatsNew } from '../features/whatsNew';
-import {
-  isAboutOpenState,
-  isAppClosingState,
-  isAppLoadState,
-  isOnlineState,
-  isWhatsNewOpenState,
-} from '../states/main';
+import { isAboutOpenState, isAppLoadState, isOnlineState, isWhatsNewOpenState } from '../states/main';
 import Startup from '../features/startup';
 import NavBar from './NavBar';
 import { fetchNotifications } from '../utils/app';
 import { AppUpdater } from '../features/updater';
-import { UserSignOut } from '../features/userSignOut';
 import { MyAssignments } from '../features/myAssignments';
 import { ScheduleAutoRefresh } from '../features/schedules';
-
-const WaitingPage = () => {
-  return (
-    <CircularProgress
-      color="primary"
-      size={80}
-      disableShrink={true}
-      sx={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        margin: 'auto',
-      }}
-    />
-  );
-};
+import WaitingPage from './WaitingPage';
+import EmailLinkAuthentication from '../features/startup/EmailLinkAuthentication';
 
 const Layout = ({ updatePwa }) => {
   let location = useLocation();
 
   const { enabledInstall, installPwa, isLoading } = usePwa2();
 
+  const [searchParams] = useSearchParams();
+
+  const isEmailAuth = searchParams.get('code') !== null;
+
   const isAppLoad = useRecoilValue(isAppLoadState);
   const isOpenAbout = useRecoilValue(isAboutOpenState);
   const isOpenWhatsNew = useRecoilValue(isWhatsNewOpenState);
-  const isAppClosing = useRecoilValue(isAppClosingState);
   const isOnline = useRecoilValue(isOnlineState);
 
   const checkPwaUpdate = () => {
@@ -81,9 +60,9 @@ const Layout = ({ updatePwa }) => {
         <ScheduleAutoRefresh />
         {isOpenAbout && <About />}
         {isOpenWhatsNew && <WhatsNew />}
-        {isAppClosing && <UserSignOut />}
 
-        {isAppLoad && <Startup />}
+        {isEmailAuth && <EmailLinkAuthentication />}
+        {isAppLoad && !isEmailAuth && <Startup />}
         {!isAppLoad && (
           <Suspense fallback={<WaitingPage />}>
             <MyAssignments />

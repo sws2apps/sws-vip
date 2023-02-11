@@ -19,7 +19,7 @@ import {
 const EmailNotVerified = () => {
   const abortCont = useRef();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const setUserSignIn = useSetRecoilState(isUserSignInState);
   const setEmailNotVerified = useSetRecoilState(isEmailNotVerifiedState);

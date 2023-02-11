@@ -9,7 +9,7 @@ import WhatsNewDetail from './WhatsNewDetail';
 import { currentNotificationState, isWhatsNewOpenState } from '../../states/main';
 
 const WhatsNew = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const [isOpen, setIsOpen] = useRecoilState(isWhatsNewOpenState);
   const [item, setItem] = useRecoilState(currentNotificationState);

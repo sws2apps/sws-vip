@@ -1,38 +1,33 @@
-import { promiseGetRecoil, promiseSetRecoil } from 'recoil-outside';
+import { getAuth } from 'firebase/auth';
+import { promiseSetRecoil } from 'recoil-outside';
 import { dbUpdateAppSettings } from '../indexedDb/dbAppSettings';
 import { dbUpdateSchedule } from '../indexedDb/dbSchedule';
-import { classCountState, congIDState, republishScheduleState } from '../states/congregation';
-import {
-  apiHostState,
-  isOnlineState,
-  rootModalOpenState,
-  sourceLangState,
-  userEmailState,
-  visitorIDState,
-} from '../states/main';
+import { classCountState, republishScheduleState } from '../states/congregation';
+import { rootModalOpenState, sourceLangState } from '../states/main';
+import { getProfile } from './common';
 
 export const dbRefreshLocalSchedule = async () => {
+  const { apiHost, congID, isOnline, visitorID } = await getProfile();
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   await promiseSetRecoil(rootModalOpenState, true);
 
-  const isOnline = await promiseGetRecoil(isOnlineState);
-  const apiHost = await promiseGetRecoil(apiHostState);
-  const visitorID = await promiseGetRecoil(visitorIDState);
-  const userEmail = await promiseGetRecoil(userEmailState);
-  const congID = await promiseGetRecoil(congIDState);
-
-  if (isOnline && apiHost !== '' && userEmail !== '' && visitorID !== '') {
+  if (isOnline && apiHost !== '' && user && visitorID !== '') {
     const res = await fetch(`${apiHost}api/congregations/${congID}/meeting-schedule`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         visitorid: visitorID,
-        email: userEmail,
+        uid: user.uid,
       },
     });
 
     const { cong_schedule, cong_sourceMaterial, class_count, source_lang } = await res.json();
     if (source_lang === undefined) {
       await promiseSetRecoil(republishScheduleState, true);
+      await promiseSetRecoil(rootModalOpenState, false);
       return;
     }
 

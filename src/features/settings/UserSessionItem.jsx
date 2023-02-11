@@ -13,7 +13,7 @@ import { appMessageState, appSeverityState, appSnackOpenState } from '../../stat
 const UserSessionItem = ({ session, setSessions }) => {
   const cancel = useRef();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const setModalOpen = useSetRecoilState(rootModalOpenState);
   const setAppSnackOpen = useSetRecoilState(appSnackOpenState);

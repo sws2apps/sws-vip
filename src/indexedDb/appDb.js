@@ -16,6 +16,10 @@ appDb.version(4).stores({
   app_settings:
     '++id, username, cong_number, cong_name, class_count, meeting_day, meeting_time, userPass, isLoggedOut, local_id, pocket_members, source_lang',
 });
+appDb.version(5).stores({
+  app_settings:
+    '++id, username, cong_number, cong_name, class_count, meeting_day, meeting_time, userPass, isLoggedOut, local_id, pocket_members, source_lang, user_avatar, account_version',
+});
 
 appDb.on('populate', function () {
   appDb.app_settings.add({
@@ -25,6 +29,7 @@ appDb.on('populate', function () {
     class_count: 1,
     meeting_day: 1,
     source_lang: 'e',
+    account_version: 'v2',
   });
 });
 

@@ -3,8 +3,8 @@ import { getI18n } from 'react-i18next';
 import { format } from 'date-fns';
 import { initAppDb } from '../indexedDb/dbUtility';
 import { dbSaveNotifications } from '../indexedDb/dbNotifications';
-import { apiHostState, appLangState, isOnlineState, sourceLangState } from '../states/main';
-import { dbGetAppSettings } from '../indexedDb/dbAppSettings';
+import { apiHostState, appLangState, avatarUrlState, isOnlineState, sourceLangState } from '../states/main';
+import { dbGetAppSettings, dbUpdateAppSettings } from '../indexedDb/dbAppSettings';
 import {
   classCountState,
   congNameState,
@@ -34,7 +34,22 @@ export const loadApp = async () => {
     local_id,
     pocket_members,
     source_lang,
+    user_avatar,
   } = await dbGetAppSettings();
+
+  const isOnline = await promiseGetRecoil(isOnlineState);
+
+  if (user_avatar) {
+    if (typeof user_avatar === 'string' && isOnline) {
+      await promiseSetRecoil(avatarUrlState, user_avatar);
+    }
+
+    if (typeof user_avatar === 'object') {
+      const blob = new Blob([user_avatar]);
+      const imgSrc = URL.createObjectURL(blob);
+      await promiseSetRecoil(avatarUrlState, imgSrc);
+    }
+  }
 
   await promiseSetRecoil(usernameState, username || '');
   await promiseSetRecoil(congNameState, cong_name || '');
@@ -145,15 +160,60 @@ export const getCurrentWeekDate = async () => {
 
   let currentWeek = format(monDay, 'MM/dd/yyyy');
   let isExist = false;
-  do {
-    const fDate = format(monDay, 'MM/dd/yyyy');
-    const schedule = schedules.find((data) => data.weekOf === fDate);
-    if (schedule) {
-      currentWeek = fDate;
-      isExist = true;
-    }
-    monDay.setDate(monDay.getDate() + 7);
-  } while (isExist === false);
+
+  if (schedules.length > 0) {
+    do {
+      const fDate = format(monDay, 'MM/dd/yyyy');
+      const schedule = schedules.find((data) => data.weekOf === fDate);
+      if (schedule) {
+        currentWeek = fDate;
+        isExist = true;
+      }
+      monDay.setDate(monDay.getDate() + 7);
+    } while (isExist === false);
+  }
 
   return currentWeek;
+};
+
+export const saveProfilePic = async (url, provider) => {
+  if (url && url !== '' && url !== null) {
+    if (provider === 'yahoo.com') {
+      await dbUpdateAppSettings({ user_avatar: url });
+      await promiseSetRecoil(avatarUrlState, url);
+
+      return;
+    }
+
+    if (provider !== 'microsoft.com') {
+      const imageReceived = () => {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = downloadedImg.width;
+        canvas.height = downloadedImg.height;
+        canvas.innerText = downloadedImg.alt;
+
+        context.drawImage(downloadedImg, 0, 0);
+
+        canvas.toBlob((done) => savePic(done));
+      };
+
+      const downloadedImg = new Image();
+      downloadedImg.crossOrigin = 'Anonymous';
+      downloadedImg.src = url;
+      downloadedImg.addEventListener('load', imageReceived, false);
+
+      const savePic = async (profileBlob) => {
+        const profileBuffer = await profileBlob.arrayBuffer();
+        await dbUpdateAppSettings({ user_avatar: profileBuffer });
+        const imgSrc = URL.createObjectURL(profileBlob);
+        await promiseSetRecoil(avatarUrlState, imgSrc);
+      };
+
+      return;
+    }
+  }
+
+  await promiseSetRecoil(avatarUrlState, undefined);
 };
