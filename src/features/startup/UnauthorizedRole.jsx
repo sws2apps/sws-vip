@@ -6,14 +6,18 @@ import Container from '@mui/material/Container';
 import InfoIcon from '@mui/icons-material/Info';
 import Typography from '@mui/material/Typography';
 import { isUnauthorizedRoleState, isUserSignInState } from '../../states/main';
+import { getAuth, signOut } from '@firebase/auth';
 
 const UnauthorizedRole = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const setUserSignIn = useSetRecoilState(isUserSignInState);
   const setIsUnauthorizedRole = useSetRecoilState(isUnauthorizedRoleState);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
+    const auth = await getAuth();
+    await signOut(auth);
+
     setUserSignIn(true);
     setIsUnauthorizedRole(false);
   };

@@ -8,7 +8,7 @@ import { appNotificationsState } from '../../states/main';
 import { themeOptionsState } from '../../states/theme';
 
 const WhatsNewContent = ({ id, open, anchorEl, handleClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const notifications = useRecoilValue(appNotificationsState);
   const theme = useRecoilValue(themeOptionsState);

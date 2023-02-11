@@ -18,7 +18,7 @@ export const isAppLoadState = atom({
 
 export const isSetupState = atom({
   key: 'isSetup',
-  default: false,
+  default: true,
 });
 
 export const apiHostState = atom({
@@ -57,18 +57,18 @@ export const monthNamesState = selector({
     const appLang = get(appLangState);
 
     let months = [];
-    months.push(getI18n().getDataByLanguage(appLang).translation['january']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['february']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['march']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['april']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['may']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['june']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['july']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['august']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['september']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['october']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['november']);
-    months.push(getI18n().getDataByLanguage(appLang).translation['december']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['january']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['february']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['march']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['april']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['may']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['june']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['july']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['august']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['september']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['october']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['november']);
+    months.push(getI18n().getDataByLanguage(appLang).ui['december']);
 
     return months;
   },
@@ -78,7 +78,7 @@ export const shortDateFormatState = selector({
   key: 'shortDateFormat',
   get: ({ get }) => {
     const appLang = get(appLangState);
-    const format = getI18n().getDataByLanguage(appLang).translation['shortDateFormat'];
+    const format = getI18n().getDataByLanguage(appLang).ui['shortDateFormat'];
     return format;
   },
 });
@@ -87,7 +87,7 @@ export const shortDatePickerFormatState = selector({
   key: 'shortDatePickerFormat',
   get: ({ get }) => {
     const appLang = get(appLangState);
-    const format = getI18n().getDataByLanguage(appLang).translation['shortDatePickerFormat'];
+    const format = getI18n().getDataByLanguage(appLang).ui['shortDatePickerFormat'];
     return format;
   },
 });
@@ -199,7 +199,7 @@ export const isCongWaitRequestState = atom({
 
 export const isShowTermsUseState = atom({
   key: 'isShowLAG',
-  default: true,
+  default: localStorage.getItem('termsUse') === 'false' ? false : true,
 });
 
 export const visitorIDState = atom({
@@ -234,11 +234,6 @@ export const isUserMfaVerifyState = atom({
 
 export const isUnauthorizedRoleState = atom({
   key: 'isUnauthorizedRole',
-  default: false,
-});
-
-export const isAppClosingState = atom({
-  key: 'isAppClosing',
   default: false,
 });
 
@@ -279,11 +274,6 @@ export const countNotificationsState = selector({
 export const currentNotificationState = atom({
   key: 'currentNotification',
   default: {},
-});
-
-export const startupProgressState = atom({
-  key: 'startupProgress',
-  default: 0,
 });
 
 export const rootModalOpenState = atom({
@@ -329,4 +319,24 @@ export const isCongPersonAddState = atom({
 export const sourceLangState = atom({
   key: 'sourceLang',
   default: 'e',
+});
+
+export const isEmailAuthState = atom({
+  key: 'isEmailAuth',
+  default: false,
+});
+
+export const isAuthProcessingState = atom({
+  key: 'isAuthProcessing',
+  default: false,
+});
+
+export const avatarUrlState = atom({
+  key: 'avatarUrl',
+  default: undefined,
+});
+
+export const isOAuthAccountUpgradeState = atom({
+  key: 'isOAuthAccountUpgrade',
+  default: false,
 });

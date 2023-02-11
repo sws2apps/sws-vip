@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import useFirebaseAuth from '../../hooks/useFirebaseAuth';
 import { dbUpdateAppSettings } from '../../indexedDb/dbAppSettings';
 import { deleteDb } from '../../indexedDb/dbUtility';
 import {
@@ -7,15 +8,14 @@ import {
   congIDState,
   congNameState,
   congNumberState,
-  isAdminCongState,
   pocketLocalIDState,
   pocketMembersState,
 } from '../../states/congregation';
 import {
   apiHostState,
+  isAppLoadState,
   isOnlineState,
   rootModalOpenState,
-  userEmailState,
   userIDState,
   visitorIDState,
 } from '../../states/main';
@@ -23,10 +23,9 @@ import {
 const UserAutoLogin = () => {
   let abortCont = useMemo(() => new AbortController(), []);
 
-  const [userEmail, setUserEmail] = useRecoilState(userEmailState);
+  const { isAuthenticated, user } = useFirebaseAuth();
 
   const setCongAccountConnected = useSetRecoilState(congAccountConnectedState);
-  const setIsAdminCong = useSetRecoilState(isAdminCongState);
   const setCongID = useSetRecoilState(congIDState);
   const setUserID = useSetRecoilState(userIDState);
   const setModalOpen = useSetRecoilState(rootModalOpenState);
@@ -38,6 +37,7 @@ const UserAutoLogin = () => {
   const isOnline = useRecoilValue(isOnlineState);
   const apiHost = useRecoilValue(apiHostState);
   const visitorID = useRecoilValue(visitorIDState);
+  const isAppLoad = useRecoilValue(isAppLoadState);
 
   const handleDisapproved = useCallback(async () => {
     setModalOpen(true);
@@ -48,19 +48,18 @@ const UserAutoLogin = () => {
 
   const checkLogin = useCallback(async () => {
     try {
-      if (apiHost !== '' && userEmail !== '' && visitorID !== '') {
+      if (apiHost !== '' && visitorID !== '') {
         const res = await fetch(`${apiHost}api/users/validate-me`, {
           signal: abortCont.signal,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             visitorid: visitorID,
-            email: userEmail,
+            uid: user.uid,
           },
         });
 
         const data = await res.json();
-
         // congregation found and role approved
         if (res.status === 200) {
           if (data.cong_role.includes('view_meeting_schedule')) {
@@ -72,7 +71,7 @@ const UserAutoLogin = () => {
               cong_name,
               cong_number,
               isLoggedOut: false,
-              local_id: pocket_local_id.person_uid,
+              local_id: pocket_local_id?.person_uid,
               pocket_members,
             };
 
@@ -82,7 +81,7 @@ const UserAutoLogin = () => {
             setUserID(id);
             setCongName(cong_name);
             setCongNumber(cong_number);
-            setPocketLocalID(pocket_local_id.person_uid);
+            setPocketLocalID(pocket_local_id?.person_uid || undefined);
             setPocketMembers(pocket_members);
             setCongAccountConnected(true);
 
@@ -107,7 +106,7 @@ const UserAutoLogin = () => {
     abortCont,
     handleDisapproved,
     visitorID,
-    userEmail,
+    user,
     setCongAccountConnected,
     setCongID,
     setUserID,
@@ -118,17 +117,12 @@ const UserAutoLogin = () => {
   ]);
 
   useEffect(() => {
-    setUserEmail(localStorage.getItem('email'));
-  }, [setUserEmail]);
-
-  useEffect(() => {
-    if (isOnline) {
+    if (!isAppLoad && isOnline && isAuthenticated) {
       checkLogin();
     } else {
       setCongAccountConnected(false);
-      setIsAdminCong(false);
     }
-  }, [checkLogin, isOnline, setCongAccountConnected, setIsAdminCong, userEmail]);
+  }, [isAppLoad, isAuthenticated, checkLogin, isOnline, setCongAccountConnected]);
 
   return <></>;
 };

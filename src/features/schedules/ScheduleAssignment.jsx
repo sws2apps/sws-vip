@@ -13,7 +13,7 @@ import { sourceLangState } from '../../states/main';
 const ScheduleAssignment = ({ edit }) => {
   const { weekToFormat } = useParams();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const classCount = useRecoilValue(classCountState);
   const schedules = useRecoilValue(scheduleLocalState);

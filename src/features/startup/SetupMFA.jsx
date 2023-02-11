@@ -17,7 +17,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import TabPanel from '../../components/TabPanel';
 import {
-  apiHostState,
   isAppLoadState,
   isReEnrollMFAState,
   isSetupState,
@@ -26,19 +25,12 @@ import {
   offlineOverrideState,
   qrCodePathState,
   secretTokenPathState,
-  startupProgressState,
-  userEmailState,
-  userIDState,
-  userPasswordState,
   visitorIDState,
 } from '../../states/main';
-import { initAppDb, isDbExist } from '../../indexedDb/dbUtility';
-import { encryptString } from '../../utils/swsEncryption';
-import { dbUpdateAppSettings } from '../../indexedDb/dbAppSettings';
-import { getErrorMessage, loadApp } from '../../utils/app';
 import { runUpdater } from '../../utils/updater';
 import { appMessageState, appSeverityState, appSnackOpenState } from '../../states/notification';
-import { congAccountConnectedState, congIDState } from '../../states/congregation';
+import { congAccountConnectedState } from '../../states/congregation';
+import { apiHandleVerifyOTP } from '../../api/auth';
 
 const a11yProps = (index) => {
   return {
@@ -58,7 +50,7 @@ const validateChar = (value, index) => {
 const SetupMFA = () => {
   const abortCont = useRef();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [userOTP, setUserOTP] = useState('');
@@ -73,18 +65,12 @@ const SetupMFA = () => {
   const setIsUnauthorizedRole = useSetRecoilState(isUnauthorizedRoleState);
   const setIsSetup = useSetRecoilState(isSetupState);
   const setIsAppLoad = useSetRecoilState(isAppLoadState);
-  const setStartupProgress = useSetRecoilState(startupProgressState);
   const setCongAccountConnected = useSetRecoilState(congAccountConnectedState);
   const setOfflineOverride = useSetRecoilState(offlineOverrideState);
-  const setCongID = useSetRecoilState(congIDState);
-  const setUserID = useSetRecoilState(userIDState);
 
-  const apiHost = useRecoilValue(apiHostState);
   const qrCodePath = useRecoilValue(qrCodePathState);
   const token = useRecoilValue(secretTokenPathState);
-  const userEmail = useRecoilValue(userEmailState);
   const visitorID = useRecoilValue(visitorIDState);
-  const userPwd = useRecoilValue(userPasswordState);
   const isReEnrollMFA = useRecoilValue(isReEnrollMFAState);
 
   const handleTabChange = (e, newValue) => {
@@ -99,85 +85,26 @@ const SetupMFA = () => {
     try {
       abortCont.current = new AbortController();
 
-      if (userOTP.length === 6) {
-        setIsProcessing(true);
-        const reqPayload = {
-          token: userOTP,
-        };
+      setIsProcessing(true);
 
-        if (apiHost !== '') {
-          const res = await fetch(`${apiHost}api/mfa/verify-token`, {
-            method: 'POST',
-            signal: abortCont.current.signal,
-            headers: {
-              'Content-Type': 'application/json',
-              visitorid: visitorID,
-              email: userEmail,
-            },
-            body: JSON.stringify(reqPayload),
-          });
+      const response = await apiHandleVerifyOTP(userOTP, true);
+      if (response.success) {
+        setIsSetup(false);
 
-          const data = await res.json();
-          if (res.status === 200) {
-            const { id, cong_id, cong_name, cong_role, cong_number, pocket_local_id, pocket_members, username } = data;
-
-            if (cong_role.length > 0) {
-              // role approved
-              if (cong_role.includes('view_meeting_schedule')) {
-                localStorage.setItem('email', userEmail);
-
-                setCongID(cong_id);
-
-                const isMainDb = await isDbExist('sws_vip');
-                if (!isMainDb) {
-                  await initAppDb();
-                }
-
-                // encrypt email & pwd
-                const encPwd = await encryptString(userPwd, JSON.stringify({ email: userEmail, pwd: userPwd }));
-
-                // save congregation update if any
-                const obj = {
-                  username,
-                  cong_name,
-                  cong_number,
-                  userPass: encPwd,
-                  isLoggedOut: false,
-                  local_id: pocket_local_id === null ? '' : pocket_local_id.person_uid,
-                  pocket_members,
-                };
-
-                await dbUpdateAppSettings(obj);
-
-                setUserID(id);
-
-                await loadApp();
-
-                setIsSetup(false);
-
-                await runUpdater();
-                setTimeout(() => {
-                  setStartupProgress(0);
-                  setOfflineOverride(false);
-                  setCongAccountConnected(true);
-                  setIsAppLoad(false);
-                }, [2000]);
-              }
-              return;
-            }
-
-            // congregation not assigned
-            setIsProcessing(false);
-            setIsUserMfaSetup(false);
-            setIsUnauthorizedRole(true);
-          } else {
-            setIsProcessing(false);
-            setAppMessage(getErrorMessage(data.message));
-            setAppSeverity('warning');
-            setAppSnackOpen(true);
-          }
-        }
+        await runUpdater();
+        setTimeout(() => {
+          setOfflineOverride(false);
+          setCongAccountConnected(true);
+          setIsAppLoad(false);
+        }, [2000]);
       }
+
+      if (response.unauthorized) {
+        setIsUserMfaSetup(false);
+        setIsUnauthorizedRole(true);
+      }
+
+      setIsProcessing(false);
     } catch (err) {
       if (!abortCont.current.signal.aborted) {
         setIsProcessing(false);
@@ -187,23 +114,16 @@ const SetupMFA = () => {
       }
     }
   }, [
-    apiHost,
     setAppMessage,
     setAppSeverity,
     setAppSnackOpen,
     setCongAccountConnected,
-    setCongID,
     setIsAppLoad,
     setIsSetup,
     setIsUnauthorizedRole,
     setIsUserMfaSetup,
     setOfflineOverride,
-    setStartupProgress,
-    setUserID,
-    userEmail,
     userOTP,
-    userPwd,
-    visitorID,
   ]);
 
   const handleOtpChange = async (newValue) => {
@@ -323,7 +243,7 @@ const SetupMFA = () => {
 
       <Typography sx={{ marginBottom: '15px', marginTop: '20px' }}>{t('setupTextOTP')}</Typography>
 
-      <Box sx={{ width: '300px' }}>
+      <Box sx={{ width: '100%', maxWidth: '450px', marginTop: '20px' }}>
         <MuiOtpInput
           value={userOTP}
           onChange={handleOtpChange}

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { isEmailBlockedState, isUserSignInState } from '../../states/main';
 
 const EmailBlocked = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ui');
 
   const setUserSignIn = useSetRecoilState(isUserSignInState);
   const setEmailBlocked = useSetRecoilState(isEmailBlockedState);
