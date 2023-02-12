@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/sws2apps/sws-vip/compare/v1.7.5...v1.7.6) (2023-02-12)
+
+
+### Bug Fixes
+
+* **firebase:** unlink password provider on signin if exists ([eaf1ce0](https://github.com/sws2apps/sws-vip/commit/eaf1ce0df683042ebe54a9fb3f7c53d2ac280947))
+
 ## [1.7.5](https://github.com/sws2apps/sws-vip/compare/v1.7.4...v1.7.5) (2023-02-12)
 
 
