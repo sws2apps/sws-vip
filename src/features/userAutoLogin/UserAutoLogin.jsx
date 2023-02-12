@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { getAuth, signOut } from '@firebase/auth';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import useFirebaseAuth from '../../hooks/useFirebaseAuth';
 import { dbUpdateAppSettings } from '../../indexedDb/dbAppSettings';
@@ -90,6 +91,12 @@ const UserAutoLogin = () => {
 
           // role disapproved
           await handleDisapproved();
+          return;
+        }
+
+        if (res.status === 403) {
+          const auth = getAuth();
+          await signOut(auth);
           return;
         }
 
