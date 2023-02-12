@@ -1,3 +1,11 @@
+## [1.7.5](https://github.com/sws2apps/sws-vip/compare/v1.7.4...v1.7.5) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** add blob to img-src ([e4fe4ab](https://github.com/sws2apps/sws-vip/commit/e4fe4ab9e7898c179d4bcea4d91c71ee4a903566))
+* **hooks:** update path to obtain photo url from firebase auth ([d6b552a](https://github.com/sws2apps/sws-vip/commit/d6b552ad2c5f8c7a4a38654dd6f59056dbce98fa))
+
 ## [1.7.4](https://github.com/sws2apps/sws-vip/compare/v1.7.3...v1.7.4) (2023-02-12)
 
 
