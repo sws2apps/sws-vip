@@ -1,3 +1,12 @@
+## [1.7.7](https://github.com/sws2apps/sws-vip/compare/v1.7.6...v1.7.7) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update connect-src ([76899d3](https://github.com/sws2apps/sws-vip/commit/76899d360e4f65f658194a80ef084304bca271aa))
+* **csp:** update connect-src ([ca41db1](https://github.com/sws2apps/sws-vip/commit/ca41db1828d99b408b66b268e870d1c76dae9067))
+* **firebase:** logout when user session ends ([c3dd67a](https://github.com/sws2apps/sws-vip/commit/c3dd67a3858ecba2f2c67889d9bc91dc5c2d870e))
+
 ## [1.7.6](https://github.com/sws2apps/sws-vip/compare/v1.7.5...v1.7.6) (2023-02-12)
 
 
