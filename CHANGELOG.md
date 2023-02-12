@@ -5,6 +5,13 @@
 
 * **auth:** support for oauth for user authentication ([4d20b50](https://github.com/sws2apps/sws-vip/commit/4d20b50b08a38549027f39c110f7cb809a68a976))
 
+# [1.7.0](https://github.com/sws2apps/sws-vip/compare/v1.6.0...v1.7.0) (2023-02-12)
+
+
+### Features
+
+* **auth:** support for oauth for user authentication ([4d20b50](https://github.com/sws2apps/sws-vip/commit/4d20b50b08a38549027f39c110f7cb809a68a976))
+
 # [1.6.0](https://github.com/sws2apps/sws-vip/compare/v1.5.1...v1.6.0) (2023-02-08)
 
 
