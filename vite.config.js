@@ -5,15 +5,16 @@ import { loadVersion } from '@sws2apps/vite-plugin-package-version';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint(), loadVersion()],
-  server: {
-    port: 4040,
-    host: true,
-  },
-  preview: {
-    port: 4040,
-  },
-  build: {
-    chunkSizeWarningLimit: 2000,
-  },
+	plugins: [react(), eslint(), loadVersion()],
+	server: {
+		port: 4040,
+		host: true,
+	},
+	preview: {
+		port: 4040,
+	},
+	build: {
+		chunkSizeWarningLimit: 2000,
+		target: 'esnext',
+	},
 });

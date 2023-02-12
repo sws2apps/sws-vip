@@ -1,3 +1,53 @@
+## [1.7.5](https://github.com/sws2apps/sws-vip/compare/v1.7.4...v1.7.5) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** add blob to img-src ([e4fe4ab](https://github.com/sws2apps/sws-vip/commit/e4fe4ab9e7898c179d4bcea4d91c71ee4a903566))
+* **hooks:** update path to obtain photo url from firebase auth ([d6b552a](https://github.com/sws2apps/sws-vip/commit/d6b552ad2c5f8c7a4a38654dd6f59056dbce98fa))
+
+## [1.7.4](https://github.com/sws2apps/sws-vip/compare/v1.7.3...v1.7.4) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update default-src for new firebase auth ([ef4d5d0](https://github.com/sws2apps/sws-vip/commit/ef4d5d032242b1fa4851900ba425cd9b93479887))
+
+## [1.7.3](https://github.com/sws2apps/sws-vip/compare/v1.7.2...v1.7.3) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update connect-src for new firebase auth ([0c73793](https://github.com/sws2apps/sws-vip/commit/0c73793e31367f1af6e66d44f17d3956780f161c))
+
+## [1.7.2](https://github.com/sws2apps/sws-vip/compare/v1.7.1...v1.7.2) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update connect-src for new firebase auth ([43ad97d](https://github.com/sws2apps/sws-vip/commit/43ad97d11e029ba1f6baba202cdc3c1005a15e27))
+
+## [1.7.1](https://github.com/sws2apps/sws-vip/compare/v1.7.0...v1.7.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update connect-src for new firebase auth ([36a1e3c](https://github.com/sws2apps/sws-vip/commit/36a1e3c72e6e0cd6ebf428b23dad2b6a4c3d86b3))
+
+# [1.7.0](https://github.com/sws2apps/sws-vip/compare/v1.6.0...v1.7.0) (2023-02-12)
+
+
+### Features
+
+* **auth:** support for oauth for user authentication ([4d20b50](https://github.com/sws2apps/sws-vip/commit/4d20b50b08a38549027f39c110f7cb809a68a976))
+
+# [1.7.0](https://github.com/sws2apps/sws-vip/compare/v1.6.0...v1.7.0) (2023-02-12)
+
+
+### Features
+
+* **auth:** support for oauth for user authentication ([4d20b50](https://github.com/sws2apps/sws-vip/commit/4d20b50b08a38549027f39c110f7cb809a68a976))
+
 # [1.6.0](https://github.com/sws2apps/sws-vip/compare/v1.5.1...v1.6.0) (2023-02-08)
 
 
