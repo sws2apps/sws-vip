@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/sws2apps/sws-vip/compare/v1.7.0...v1.7.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* **csp:** update connect-src for new firebase auth ([36a1e3c](https://github.com/sws2apps/sws-vip/commit/36a1e3c72e6e0cd6ebf428b23dad2b6a4c3d86b3))
+
 # [1.7.0](https://github.com/sws2apps/sws-vip/compare/v1.6.0...v1.7.0) (2023-02-12)
 
 
