@@ -37,7 +37,7 @@ const EmailAuth = () => {
   const userEmail = useRecoilValue(userEmailState);
 
   const [isProcessing, setIsProcessing] = useState(false);
-  const [userTmpEmail, setUserTmpEmail] = useState(userEmail);
+  const [userTmpEmail, setUserTmpEmail] = useState('');
 
   const handleProviderSignIn = () => {
     setUserSignUp(false);
@@ -46,19 +46,24 @@ const EmailAuth = () => {
   };
 
   const handleSendLink = async () => {
-    const email = userTmpEmail;
     cancel.current = false;
 
     setIsProcessing(true);
 
     if (isOAuthAccountUpgrade) {
       const auth = await getAuth();
-      const user = auth.currentUser;
+      if (auth) {
+        const user = auth.currentUser;
+        await apiRequestPasswordlesssLink(userTmpEmail, user.uid);
+      }
 
-      await apiRequestPasswordlesssLink(email, user.uid);
+      if (!auth) {
+        await apiRequestPasswordlesssLink(userTmpEmail);
+      }
+
       await dbUpdateAppSettings({ account_version: 'v2' });
     } else {
-      await apiRequestPasswordlesssLink(email);
+      await apiRequestPasswordlesssLink(userTmpEmail);
     }
 
     if (!isEmailValid(email)) {
@@ -73,8 +78,8 @@ const EmailAuth = () => {
   useEffect(() => {
     const fillDetailsUpgrade = async () => {
       const auth = await getAuth();
-      const user = auth.currentUser;
-      setUserTmpEmail(user?.email || userTmpEmail);
+      const user = auth?.currentUser;
+      setUserTmpEmail(user?.email || userEmail);
     };
 
     if (isOAuthAccountUpgrade) fillDetailsUpgrade();
@@ -82,13 +87,13 @@ const EmailAuth = () => {
     return () => {
       cancel.current = true;
     };
-  }, [isOAuthAccountUpgrade, userTmpEmail]);
+  }, [isOAuthAccountUpgrade, userEmail]);
 
   return (
     <Container sx={{ marginTop: '20px' }}>
       {!isOAuthAccountUpgrade && (
         <>
-          <Typography variant="h4" sx={{ marginBottom: '15px' }}>
+          <Typography variant='h4' sx={{ marginBottom: '15px' }}>
             {t('emailAuth')}
           </Typography>
 
@@ -98,11 +103,11 @@ const EmailAuth = () => {
 
       <Box sx={{ maxWidth: '500px' }}>
         <TextField
-          id="outlined-basic"
+          id='outlined-basic'
           label={t('email')}
-          variant="outlined"
+          variant='outlined'
           sx={{ width: '100%' }}
-          type="email"
+          type='email'
           value={userTmpEmail}
           onChange={(e) => setUserTmpEmail(e.target.value)}
           inputProps={{ readOnly: isOAuthAccountUpgrade && userTmpEmail.length > 0 }}
@@ -119,11 +124,11 @@ const EmailAuth = () => {
             gap: '10px',
           }}
         >
-          <Link component="button" underline="none" variant="body1" onClick={handleProviderSignIn}>
+          <Link component='button' underline='none' variant='body1' onClick={handleProviderSignIn}>
             {t('authProvider')}
           </Link>
           <Button
-            variant="contained"
+            variant='contained'
             disabled={isProcessing}
             endIcon={isProcessing ? <CircularProgress size={25} /> : null}
             onClick={handleSendLink}
