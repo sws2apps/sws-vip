@@ -1,3 +1,10 @@
+## [1.7.10](https://github.com/sws2apps/sws-vip/compare/v1.7.9...v1.7.10) (2023-02-14)
+
+
+### Bug Fixes
+
+* **app:** getting translation from the correct namespace ([cbabf11](https://github.com/sws2apps/sws-vip/commit/cbabf118071b6e127aa898a0eb00d65d258c3590))
+
 ## [1.7.9](https://github.com/sws2apps/sws-vip/compare/v1.7.8...v1.7.9) (2023-02-14)
 
 
