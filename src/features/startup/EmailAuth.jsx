@@ -9,7 +9,13 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { isEmailAuthState, isOAuthAccountUpgradeState, isUserSignInState, isUserSignUpState } from '../../states/main';
+import {
+  isEmailAuthState,
+  isOAuthAccountUpgradeState,
+  isUserSignInState,
+  isUserSignUpState,
+  userEmailState,
+} from '../../states/main';
 import { isEmailValid } from '../../utils/emailValid';
 import { appMessageState, appSeverityState, appSnackOpenState } from '../../states/notification';
 import { apiRequestPasswordlesssLink } from '../../api/auth';
@@ -28,9 +34,10 @@ const EmailAuth = () => {
   const setAppMessage = useSetRecoilState(appMessageState);
 
   const isOAuthAccountUpgrade = useRecoilValue(isOAuthAccountUpgradeState);
+  const userEmail = useRecoilValue(userEmailState);
 
   const [isProcessing, setIsProcessing] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [userTmpEmail, setUserTmpEmail] = useState(userEmail);
 
   const handleProviderSignIn = () => {
     setUserSignUp(false);
@@ -39,7 +46,7 @@ const EmailAuth = () => {
   };
 
   const handleSendLink = async () => {
-    const email = userEmail;
+    const email = userTmpEmail;
     cancel.current = false;
 
     setIsProcessing(true);
@@ -67,7 +74,7 @@ const EmailAuth = () => {
     const fillDetailsUpgrade = async () => {
       const auth = await getAuth();
       const user = auth.currentUser;
-      setUserEmail(user.email);
+      setUserTmpEmail(user?.email || userTmpEmail);
     };
 
     if (isOAuthAccountUpgrade) fillDetailsUpgrade();
@@ -75,7 +82,7 @@ const EmailAuth = () => {
     return () => {
       cancel.current = true;
     };
-  }, [isOAuthAccountUpgrade]);
+  }, [isOAuthAccountUpgrade, userTmpEmail]);
 
   return (
     <Container sx={{ marginTop: '20px' }}>
@@ -96,9 +103,9 @@ const EmailAuth = () => {
           variant="outlined"
           sx={{ width: '100%' }}
           type="email"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          inputProps={{ readOnly: isOAuthAccountUpgrade }}
+          value={userTmpEmail}
+          onChange={(e) => setUserTmpEmail(e.target.value)}
+          inputProps={{ readOnly: isOAuthAccountUpgrade && userTmpEmail.length > 0 }}
         />
 
         <Box
