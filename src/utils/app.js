@@ -101,53 +101,54 @@ export const getErrorMessage = (msg) => {
 
   switch (msg) {
     case 'ACCOUNT_IN_USE':
-      return t('accountExist');
+      return t('accountExist', { ns: 'ui' });
     case 'EMAIL_NOT_FOUND':
-      return t('accountNotFound');
+      return t('accountNotFound', { ns: 'ui' });
     case 'INVALID_EMAIL':
-      return t('accountNotFound');
+      return t('accountNotFound', { ns: 'ui' });
     case 'MISSING_EMAIL':
-      return t('accountNotFound');
+      return t('accountNotFound', { ns: 'ui' });
     case 'INVALID_PASSWORD':
-      return t('incorrectInfo');
+      return t('incorrectInfo', { ns: 'ui' });
     case 'USER_DISABLED':
-      return t('accountDisabled');
+      return t('accountDisabled', { ns: 'ui' });
     case 'BLOCKED_TEMPORARILY_TRY_AGAIN':
-      return t('hostBlocked');
+      return t('hostBlocked', { ns: 'ui' });
     case 'BLOCKED_TEMPORARILY':
-      return t('hostBlocked');
+      return t('hostBlocked', { ns: 'ui' });
     case 'TOKEN_INVALID':
-      return t('code2faIncorrect');
+      return t('code2faIncorrect', { ns: 'ui' });
     case 'INTERNAL_ERROR':
-      return t('internalError');
+      return t('internalError', { ns: 'ui' });
     case 'ACCOUNT_CREATION_FAILED':
-      return t('createAccountFailed');
+      return t('createAccountFailed', { ns: 'ui' });
     case 'EMAIL_NOT_SUPPORTED':
-      return t('emailNotSupported');
+      return t('emailNotSupported', { ns: 'ui' });
     default:
       return msg;
   }
 };
 
 export const getAssignmentName = (assType) => {
+  const { t } = getI18n();
   if (assType === 101 || (assType >= 140 && assType < 170)) {
-    return getI18n().t('initialCall');
+    return t('initialCall', { ns: 'ui' });
   }
 
   if (assType === 102 || (assType >= 170 && assType < 200)) {
-    return getI18n().t('returnVisit');
+    return t('returnVisit', { ns: 'ui' });
   }
 
   if (assType === 103) {
-    return getI18n().t('bibleStudy');
+    return t('bibleStudy', { ns: 'ui' });
   }
 
   if (assType === 104) {
-    return getI18n().t('talk');
+    return t('talk', { ns: 'ui' });
   }
 
   if (assType === 108) {
-    return getI18n().t('memorialInvite');
+    return t('memorialInvite', { ns: 'ui' });
   }
 };
 
