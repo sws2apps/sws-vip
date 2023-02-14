@@ -24,6 +24,7 @@ const EmailLinkAuthentication = () => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [userTmpFullname, setUserTmpFullname] = useState('');
+  const [errorLogin, setErrorLogin] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -31,32 +32,38 @@ const EmailLinkAuthentication = () => {
   const isNewUser = searchParams.get('user') === 'create';
 
   const completeEmailAuth = async () => {
-    if (isNewUser && userTmpFullname.length === 0) {
-      setAppMessage(t('fullnameRequired'));
-      setAppSeverity('warning');
-      setAppSnackOpen(true);
-      return;
+    try {
+      setErrorLogin('');
+
+      if (isNewUser && userTmpFullname.length === 0) {
+        setAppMessage(t('fullnameRequired'));
+        setAppSeverity('warning');
+        setAppSnackOpen(true);
+        return;
+      }
+
+      setIsProcessing(true);
+      const auth = getAuth();
+      await setPersistence(auth, indexedDBLocalPersistence);
+      const userCredential = await signInWithCustomToken(auth, code);
+      const user = userCredential.user;
+
+      cancel.current = false;
+
+      const result = await apiUpdatePasswordlessInfo(user.uid, userTmpFullname);
+      // refetch auth after email update
+      await signInWithCustomToken(auth, code);
+
+      if (result.isVerifyMFA) {
+        setSearchParams('');
+      }
+      if (result.isSetupMFA) {
+        setSearchParams('');
+      }
+      setIsProcessing(false);
+    } catch (err) {
+      setErrorLogin(err.message);
     }
-
-    setIsProcessing(true);
-    const auth = getAuth();
-    await setPersistence(auth, indexedDBLocalPersistence);
-    const userCredential = await signInWithCustomToken(auth, code);
-    const user = userCredential.user;
-
-    cancel.current = false;
-
-    const result = await apiUpdatePasswordlessInfo(user.uid, userTmpFullname);
-    // refetch auth after email update
-    await signInWithCustomToken(auth, code);
-
-    if (result.isVerifyMFA) {
-      setSearchParams('');
-    }
-    if (result.isSetupMFA) {
-      setSearchParams('');
-    }
-    setIsProcessing(false);
   };
 
   const handleRequestNewLink = () => {
@@ -116,6 +123,10 @@ const EmailLinkAuthentication = () => {
             {t('signIn')}
           </Button>
         </Box>
+
+        <Typography color="error" sx={{ fontSize: '13px' }}>
+          {errorLogin}
+        </Typography>
       </Box>
     </Container>
   );
