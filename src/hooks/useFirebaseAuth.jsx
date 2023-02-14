@@ -12,8 +12,8 @@ const useFirebaseAuth = () => {
       setUser(user);
       if (user) {
         const provider = user.providerData[0]?.providerId || 'none';
-        const photoURL = user.photoURL || user.providerData[0]?.photoURL;
-        saveProfilePic(photoURL, provider);
+        // const photoURL = user.photoURL || user.providerData[0]?.photoURL;
+        saveProfilePic(undefined, provider);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
