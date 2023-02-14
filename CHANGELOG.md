@@ -1,3 +1,11 @@
+## [1.7.9](https://github.com/sws2apps/sws-vip/compare/v1.7.8...v1.7.9) (2023-02-14)
+
+
+### Bug Fixes
+
+* **account-upgrade:** don’t send uid if firebase auth is null ([5f8cb60](https://github.com/sws2apps/sws-vip/commit/5f8cb6086d74735f80c4f4c3682296059632a6af))
+* **account-upgrade:** handle undefined var on upgrade ([fbdc63c](https://github.com/sws2apps/sws-vip/commit/fbdc63ced9e5da67c9cd24a044590e7c88a56e82))
+
 ## [1.7.8](https://github.com/sws2apps/sws-vip/compare/v1.7.7...v1.7.8) (2023-02-14)
 
 
