@@ -1,3 +1,10 @@
+## [1.7.8](https://github.com/sws2apps/sws-vip/compare/v1.7.7...v1.7.8) (2023-02-14)
+
+
+### Bug Fixes
+
+* **firebase:** temporarily remove feature to save profile picture ([f9da27f](https://github.com/sws2apps/sws-vip/commit/f9da27f631bd030c17237574976cd5740be9a9f1))
+
 ## [1.7.7](https://github.com/sws2apps/sws-vip/compare/v1.7.6...v1.7.7) (2023-02-12)
 
 
