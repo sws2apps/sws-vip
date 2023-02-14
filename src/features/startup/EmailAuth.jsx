@@ -66,7 +66,7 @@ const EmailAuth = () => {
       await apiRequestPasswordlesssLink(userTmpEmail);
     }
 
-    if (!isEmailValid(email)) {
+    if (!isEmailValid(userTmpEmail)) {
       setAppMessage(t('emailNotSupported'));
       setAppSeverity('warning');
       setAppSnackOpen(true);
