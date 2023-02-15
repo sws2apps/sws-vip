@@ -1,24 +1,32 @@
 import { useEffect, Suspense } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import usePwa2 from 'use-pwa2/dist/index.js';
 import Box from '@mui/material/Box';
 import About from '../features/about';
 import RootModal from './RootModal';
 import UserAutoLogin from '../features/userAutoLogin';
-import { WhatsNew } from '../features/whatsNew';
-import { isAboutOpenState, isAppLoadState, isOnlineState, isWhatsNewOpenState } from '../states/main';
+import { WhatsNewContent } from '../features/whatsNew';
+import { isAboutOpenState, isAppLoadState, isOnlineState } from '../states/main';
 import Startup from '../features/startup';
 import NavBar from './NavBar';
-import { fetchNotifications } from '../utils/app';
 import { AppUpdater } from '../features/updater';
 import { MyAssignments } from '../features/myAssignments';
 import { ScheduleAutoRefresh } from '../features/schedules';
 import WaitingPage from './WaitingPage';
 import EmailLinkAuthentication from '../features/startup/EmailLinkAuthentication';
+import { dbSaveNotifications } from '../indexedDb/dbNotifications';
+import { fetchNotifications } from '../api/notification';
 
 const Layout = ({ updatePwa }) => {
   let location = useLocation();
+
+  const { data: announcements } = useQuery({
+    queryKey: ['annoucements'],
+    queryFn: fetchNotifications,
+    refetchInterval: 60000,
+  });
 
   const { enabledInstall, installPwa, isLoading } = usePwa2();
 
@@ -28,7 +36,6 @@ const Layout = ({ updatePwa }) => {
 
   const isAppLoad = useRecoilValue(isAppLoadState);
   const isOpenAbout = useRecoilValue(isAboutOpenState);
-  const isOpenWhatsNew = useRecoilValue(isWhatsNewOpenState);
   const isOnline = useRecoilValue(isOnlineState);
 
   const checkPwaUpdate = () => {
@@ -41,14 +48,12 @@ const Layout = ({ updatePwa }) => {
   };
 
   useEffect(() => {
-    if (isOnline) {
-      fetchNotifications();
-    }
-
-    if (import.meta.env.PROD) {
-      checkPwaUpdate();
-    }
+    if (import.meta.env.PROD && isOnline) checkPwaUpdate();
   }, [isOnline, location]);
+
+  useEffect(() => {
+    if (announcements?.data?.length >= 0) dbSaveNotifications(announcements.data);
+  }, [announcements]);
 
   return (
     <RootModal>
@@ -57,9 +62,9 @@ const Layout = ({ updatePwa }) => {
 
       <Box sx={{ padding: '10px' }}>
         <UserAutoLogin />
+        <WhatsNewContent />
         <ScheduleAutoRefresh />
         {isOpenAbout && <About />}
-        {isOpenWhatsNew && <WhatsNew />}
 
         {isEmailAuth && <EmailLinkAuthentication />}
         {isAppLoad && !isEmailAuth && <Startup />}

@@ -20,6 +20,9 @@ appDb.version(5).stores({
   app_settings:
     '++id, username, cong_number, cong_name, class_count, meeting_day, meeting_time, userPass, isLoggedOut, local_id, pocket_members, source_lang, user_avatar, account_version',
 });
+appDb.version(6).stores({
+  announcements: '&announcement_id, title, body',
+});
 
 appDb.on('populate', function () {
   appDb.app_settings.add({
