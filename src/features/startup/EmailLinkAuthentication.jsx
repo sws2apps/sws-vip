@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { apiUpdatePasswordlessInfo } from '../../api/auth';
 import { appMessageState, appSeverityState, appSnackOpenState } from '../../states/notification';
+import { offlineOverrideState } from '../../states/main';
 
 const EmailLinkAuthentication = () => {
   const { t } = useTranslation('ui');
@@ -21,10 +22,10 @@ const EmailLinkAuthentication = () => {
   const setAppSnackOpen = useSetRecoilState(appSnackOpenState);
   const setAppSeverity = useSetRecoilState(appSeverityState);
   const setAppMessage = useSetRecoilState(appMessageState);
+  const setOfflineOverride = useSetRecoilState(offlineOverrideState);
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [userTmpFullname, setUserTmpFullname] = useState('');
-  const [errorLogin, setErrorLogin] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -33,8 +34,6 @@ const EmailLinkAuthentication = () => {
 
   const completeEmailAuth = async () => {
     try {
-      setErrorLogin('');
-
       if (isNewUser && userTmpFullname.length === 0) {
         setAppMessage(t('fullnameRequired'));
         setAppSeverity('warning');
@@ -54,15 +53,18 @@ const EmailLinkAuthentication = () => {
       // refetch auth after email update
       await signInWithCustomToken(auth, code);
 
-      if (result.isVerifyMFA) {
+      if (result.isVerifyMFA || result.isSetupMFA) {
         setSearchParams('');
+        setOfflineOverride(true);
       }
-      if (result.isSetupMFA) {
-        setSearchParams('');
-      }
+
       setIsProcessing(false);
     } catch (err) {
-      setErrorLogin(err.message);
+      setIsProcessing(false);
+
+      setAppMessage(err.message);
+      setAppSeverity('warning');
+      setAppSnackOpen(true);
     }
   };
 
@@ -123,10 +125,6 @@ const EmailLinkAuthentication = () => {
             {t('signIn')}
           </Button>
         </Box>
-
-        <Typography color="error" sx={{ fontSize: '13px' }}>
-          {errorLogin}
-        </Typography>
       </Box>
     </Container>
   );

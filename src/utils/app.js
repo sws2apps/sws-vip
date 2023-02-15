@@ -2,8 +2,7 @@ import { promiseGetRecoil, promiseSetRecoil } from 'recoil-outside';
 import { getI18n } from 'react-i18next';
 import { format } from 'date-fns';
 import { initAppDb } from '../indexedDb/dbUtility';
-import { dbSaveNotifications } from '../indexedDb/dbNotifications';
-import { apiHostState, appLangState, avatarUrlState, isOnlineState, sourceLangState } from '../states/main';
+import { appLangState, avatarUrlState, sourceLangState } from '../states/main';
 import { dbGetAppSettings, dbUpdateAppSettings } from '../indexedDb/dbAppSettings';
 import {
   classCountState,
@@ -18,6 +17,7 @@ import {
 } from '../states/congregation';
 import appDb from '../indexedDb/appDb';
 import { scheduleDataState, scheduleLocalState, sourceDataState } from '../states/schedule';
+import { appMessageState, appSeverityState, appSnackOpenState } from '../states/notification';
 
 export const loadApp = async () => {
   const I18n = getI18n();
@@ -37,13 +37,7 @@ export const loadApp = async () => {
     user_avatar,
   } = await dbGetAppSettings();
 
-  const isOnline = await promiseGetRecoil(isOnlineState);
-
   if (user_avatar) {
-    if (typeof user_avatar === 'string' && isOnline) {
-      await promiseSetRecoil(avatarUrlState, user_avatar);
-    }
-
     if (typeof user_avatar === 'object') {
       const blob = new Blob([user_avatar]);
       const imgSrc = URL.createObjectURL(blob);
@@ -70,26 +64,6 @@ export const loadApp = async () => {
 
   const sources = await appDb.cong_sourceMaterial.toCollection().first();
   await promiseSetRecoil(sourceDataState, sources);
-};
-
-export const fetchNotifications = async () => {
-  try {
-    const isOnline = await promiseGetRecoil(isOnlineState);
-    const apiHost = await promiseGetRecoil(apiHostState);
-
-    if (isOnline && apiHost !== '') {
-      const res = await fetch(`${apiHost}api/users/announcement`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          app: 'sws-vip',
-        },
-      });
-
-      const data = await res.json();
-      await dbSaveNotifications(data);
-    }
-  } catch {}
 };
 
 export const formatDateForCompare = (date) => {
@@ -179,14 +153,7 @@ export const getCurrentWeekDate = async () => {
 
 export const saveProfilePic = async (url, provider) => {
   if (url && url !== '' && url !== null) {
-    if (provider === 'yahoo.com') {
-      await dbUpdateAppSettings({ user_avatar: url });
-      await promiseSetRecoil(avatarUrlState, url);
-
-      return;
-    }
-
-    if (provider !== 'microsoft.com') {
+    if (provider !== 'microsoft.com' && provider !== 'yahoo.com') {
       const imageReceived = () => {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
@@ -217,4 +184,11 @@ export const saveProfilePic = async (url, provider) => {
   }
 
   await promiseSetRecoil(avatarUrlState, undefined);
+};
+
+export const displayMultiProviderAuthError = async () => {
+  const { t } = getI18n();
+  await promiseSetRecoil(appMessageState, t('oauthAccountExistsWithDifferentCredential', { ns: 'ui' }));
+  await promiseSetRecoil(appSeverityState, 'warning');
+  await promiseSetRecoil(appSnackOpenState, true);
 };
