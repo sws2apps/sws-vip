@@ -1,3 +1,14 @@
+# [1.8.0](https://github.com/sws2apps/sws-vip/compare/v1.7.10...v1.8.0) (2023-02-15)
+
+
+### Features
+
+* **auth:** prevent signin using multiple providers ([81fe7bf](https://github.com/sws2apps/sws-vip/commit/81fe7bf4d02d6507eab9f40fccb8e25c2342fe0d))
+* **deps:** bump @mui/icons-material from 5.11.0 to 5.11.9 ([a13a1b0](https://github.com/sws2apps/sws-vip/commit/a13a1b0e4f7a6dd6accfc98211110d58da5d3a2e))
+* **deps:** bump @mui/lab from 5.0.0-alpha.119 to 5.0.0-alpha.120 ([3291bc8](https://github.com/sws2apps/sws-vip/commit/3291bc8262412fa0d083d08523f0da346c27abd5))
+* **deps:** bump @mui/material from 5.11.8 to 5.11.9 ([b6db248](https://github.com/sws2apps/sws-vip/commit/b6db2485225e2cd2428700acbf8a08a4d23ed169))
+* **deps:** bump @tanstack/react-query from 4.24.4 to 4.24.6 ([1964f9d](https://github.com/sws2apps/sws-vip/commit/1964f9dc127ca85b9f1c035fa84c6a6e8f656fd6))
+
 ## [1.7.10](https://github.com/sws2apps/sws-vip/compare/v1.7.9...v1.7.10) (2023-02-14)
 
 
