@@ -150,7 +150,7 @@
   "oauthYahoo": "Hampiasa Yahoo",
   "oauthEmail": "Hampiasa Email",
   "providerNotAvailable": "Ampiasao ny safidy eto ambany raha tsy eo amin’ilay lisitra eo ambony ny email ampiasainao.",
-  "signInDesc": "Choose below which service you want to use for sign in.",
+  "signInDesc": "Safidio eto ambany ny programa tianao ampiasaina mba hamoronana ny kaontinao.",
   "emailAuth": "Fidirana Amin’ny Email",
   "emailAuthDesc": "Ampidiro eto ambany ny adiresy email ampiasainao.",
   "sendLink": "Handefa Rohy",
@@ -176,8 +176,8 @@
   "userAccountUpgradeStart": "Mba hanovana ny kaonty ampiasainao izao, dia midira aloha amin’ny alalan’ny adiresy email sy ny tenimiafina fampiasanao hatramin’izay.",
   "userAccountUpgradeChooseService": "Safidio eto ambany ny programa tianao ampiasaina mba hanavaozana ny kaontinao.",
   "waitScheduleRefresh": "Miandrasa kely mandra-pahavitan’ny fakana fandaharana",
-  "announcements": "What’s New",
-  "markAsRead": "Mark as read",
-  "expand": "Expand",
-  "collapse": "Collapse"
+  "announcements": "Vaovao",
+  "markAsRead": "Voavaky",
+  "expand": "Aseho",
+  "collapse": "Afenina"
 }
