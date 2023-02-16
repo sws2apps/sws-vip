@@ -42,7 +42,7 @@ const WhatsNewItem = ({ announcement }) => {
     noSsr: true,
   });
 
-  const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang).locale;
+  const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang)?.locale || 'en';
 
   const localeTitle = announcement.title.find((item) => item.language === fldKey);
   const localeBody = announcement.body.find((item) => item.language === fldKey);
