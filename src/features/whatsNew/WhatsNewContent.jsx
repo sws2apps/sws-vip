@@ -20,7 +20,7 @@ const WhatsNewContent = () => {
 
   const [localAnnouncements, setLocalAnnouncements] = useState([]);
 
-  const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang).locale;
+  const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang)?.locale || 'en';
 
   const toggleDrawer = (open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

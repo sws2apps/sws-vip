@@ -268,7 +268,7 @@ export const countNotificationsState = selector({
   get: ({ get }) => {
     const announcements = get(appNotificationsState);
     const appLang = get(appLangState);
-    const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang).locale;
+    const fldKey = LANGUAGE_LIST.find((language) => language.code === appLang)?.locale || 'en';
 
     let count = 0;
     for (const announcement of announcements) {
