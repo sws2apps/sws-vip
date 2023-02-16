@@ -1,3 +1,15 @@
+# [1.9.0](https://github.com/sws2apps/sws-vip/compare/v1.8.0...v1.9.0) (2023-02-16)
+
+
+### Bug Fixes
+
+* **app:** fix undefined locale error on startup ([fbc33a4](https://github.com/sws2apps/sws-vip/commit/fbc33a45ba98f7b18ec604b23899237aa2a57d67))
+
+
+### Features
+
+* **deps:** bump @fingerprintjs/fingerprintjs-pro from 3.8.1 to 3.8.2 ([03ae857](https://github.com/sws2apps/sws-vip/commit/03ae857ab759c9d1876f58d805beb1e2a24cb986))
+
 # [1.8.0](https://github.com/sws2apps/sws-vip/compare/v1.7.10...v1.8.0) (2023-02-15)
 
 
