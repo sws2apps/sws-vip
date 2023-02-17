@@ -5,7 +5,7 @@ import SingleAssignmentPerson from './SingleAssignmentPerson';
 const styles = {
   personContainer: { display: 'flex', marginRight: '5px', alignItems: 'flex-end' },
 };
-const SingleAssignment = ({ ayf, header, person, assistant, assType, assTypeName }) => {
+const SingleAssignment = ({ ayf, header, person, assistant, assType }) => {
   const getPersonStyle = () => {
     if (ayf)
       return {

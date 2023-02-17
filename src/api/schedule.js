@@ -24,7 +24,7 @@ export const dbRefreshLocalSchedule = async () => {
       },
     });
 
-    const { cong_schedule, cong_sourceMaterial, class_count, source_lang } = await res.json();
+    const { cong_schedule, cong_sourceMaterial, class_count, source_lang, co_name, co_displayName } = await res.json();
     if (source_lang === undefined) {
       await promiseSetRecoil(republishScheduleState, true);
       await promiseSetRecoil(rootModalOpenState, false);
@@ -32,10 +32,10 @@ export const dbRefreshLocalSchedule = async () => {
     }
 
     await dbUpdateSchedule({ cong_schedule, cong_sourceMaterial });
-    await dbUpdateAppSettings({ class_count });
     await promiseSetRecoil(classCountState, class_count);
-    await dbUpdateAppSettings({ source_lang });
     await promiseSetRecoil(sourceLangState, source_lang);
+
+    await dbUpdateAppSettings({ class_count, source_lang, co_name, co_displayName });
   }
 
   await promiseSetRecoil(rootModalOpenState, false);
