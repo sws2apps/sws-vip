@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/sws2apps/sws-vip/compare/v1.9.0...v1.10.0) (2023-02-17)
+
+
+### Features
+
+* **schedules:** display circuit overseer talk title ([ea029d4](https://github.com/sws2apps/sws-vip/commit/ea029d4c57bd092cc8136177ac7cacc9cdf2fa12))
+
 # [1.9.0](https://github.com/sws2apps/sws-vip/compare/v1.8.0...v1.9.0) (2023-02-16)
 
 
