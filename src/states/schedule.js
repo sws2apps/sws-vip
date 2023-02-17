@@ -198,7 +198,11 @@ export const myAssignmentsState = selector({
               const assTime = schedule[timeFld];
               const assistantDispName = schedule[assistantFldDispName];
 
-              obj.assignmentName = `${getAssignmentName(assType)} - ${t('student', { ns: 'ui' })}`;
+              obj.assignmentName = getAssignmentName(assType);
+              if (assType !== 104) {
+                obj.assignmentName += ` - ${t('student', { ns: 'ui' })}`;
+              }
+
               obj.assistantDispName = assistantDispName;
               obj.assignmentTime = assTime;
               obj.assignmentSource = assSource;
