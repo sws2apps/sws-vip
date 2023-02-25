@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/sws2apps/sws-vip/compare/v1.10.0...v1.11.0) (2023-02-25)
+
+
+### Features
+
+* **app:** add disclaimer for new address ([e872e1b](https://github.com/sws2apps/sws-vip/commit/e872e1b5af10ece3a3e872d647d8a788e5f748a1))
+* **deps:** bump @emotion/react from 11.10.5 to 11.10.6 ([02942d9](https://github.com/sws2apps/sws-vip/commit/02942d95a2d229dd95c525350b9ffbe3adb82c0c))
+* **deps:** bump @emotion/styled from 11.10.5 to 11.10.6 ([a4a3f52](https://github.com/sws2apps/sws-vip/commit/a4a3f52562ae6d3019daf514e2d98687b2210b98))
+* **deps:** bump @mui/material from 5.11.9 to 5.11.10 ([f196578](https://github.com/sws2apps/sws-vip/commit/f196578c88e658eff6f20dace97eab4fd8945231))
+* **deps:** bump @tanstack/react-query from 4.24.6 to 4.24.10 ([8b214b5](https://github.com/sws2apps/sws-vip/commit/8b214b565946d19f52d4a4c897a050d8e127a886))
+* **deps:** bump i18next from 22.4.9 to 22.4.10 ([2ca1678](https://github.com/sws2apps/sws-vip/commit/2ca1678fef1c28d58f9647bf143a38fb7c565548))
+* **deps:** bump react-i18next from 12.1.5 to 12.2.0 ([6940359](https://github.com/sws2apps/sws-vip/commit/694035957fd8fec92b0c20075b974a4494f094ee))
+
 # [1.10.0](https://github.com/sws2apps/sws-vip/compare/v1.9.0...v1.10.0) (2023-02-17)
 
 
